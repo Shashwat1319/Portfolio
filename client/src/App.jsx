@@ -31,12 +31,13 @@ function App() {
             path="/about"
             element={
               <>
+                <Hero />
                 <About />
               </>
             }
           />
           <Route
-            path="/skill"
+            path="/skills"
             element={
               <>
                 <Skills />

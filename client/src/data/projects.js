@@ -4,15 +4,15 @@ export const projects = [
     title: "Client Project Tracker",
     description: "Full-stack app to manage clients and projects with React, Node.js, Express, and MongoDB.",
     github: "https://github.com/Shashwat1319/ProjectTracker",
-    live: "#",
+    live: "https://projectrackerr.netlify.app/",
     tech: ["React", "Node.js", "MongoDB", "Express"]
   },
   {
     id: 2,
     title: "Portfolio Website",
     description: "Responsive personal portfolio built with React and Tailwind CSS.",
-    github: "#",
-    live: "#",
+    github: "https://github.com/Shashwat1319/Protfolio",
+    live: "/",
     tech: ["React", "Tailwind CSS"]
   }
 ]

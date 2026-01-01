@@ -6,6 +6,7 @@ function About() {
         <div className="flex-1">
           <h2 className="text-4xl font-bold mb-6 text-gray-800">
             About Me
+            <hr className="mt-5"/>
           </h2>
           <p className="text-gray-700 mb-4 leading-relaxed">
             I’m <span className="font-semibold text-blue-600">Shashwat Srivastava</span>, a MERN Stack Developer from Lucknow, Uttar Pradesh. 
@@ -21,7 +22,7 @@ function About() {
         {/* Optional Graphic / Placeholder Box */}
         <div className="flex-1">
           <div className="w-full h-64 bg-gradient-to from-blue-500 via-purple-500 to-pink-500 rounded-lg shadow-lg flex items-center justify-center text-white text-2xl font-bold">
-            Mern Stack Developer
+          <img src="/myphoto.jpg" alt="" />
           </div>
         </div>
       </div>

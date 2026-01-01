@@ -11,9 +11,12 @@ function ProjectCard({ project }) {
         ))}
       </div>
       <div className="mt-4 flex gap-4">
-        <a href={project.github} target="_blank" className="text-blue-600 hover:underline">
+        <button className="btn">
+<a href={project.github} target="_blank" className="text-blue-600 hover:underline">
           GitHub
         </a>
+        </button>
+        
         <a href={project.live} target="_blank" className="text-green-600 hover:underline">
           Live
         </a>

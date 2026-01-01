@@ -18,22 +18,22 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="about" smooth={true} className="hover:text-blue-600 cursor-pointer">
+            <Link to="/about" smooth={true} className="hover:text-blue-600 cursor-pointer">
               About
             </Link>
           </li>
           <li>
-            <Link to="skills" smooth={true} className="hover:text-blue-600 cursor-pointer">
+            <Link to="/skills" smooth={true} className="hover:text-blue-600 cursor-pointer">
               Skills
             </Link>
           </li>
           <li>
-            <Link to="projects" smooth={true} className="hover:text-blue-600 cursor-pointer">
+            <Link to="/projects" smooth={true} className="hover:text-blue-600 cursor-pointer">
               Projects
             </Link>
           </li>
           <li>
-            <Link to="contact" smooth={true} className="hover:text-blue-600 cursor-pointer">
+            <Link to="/contact" smooth={true} className="hover:text-blue-600 cursor-pointer">
               Contact
             </Link>
           </li>
