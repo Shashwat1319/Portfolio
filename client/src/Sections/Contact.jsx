@@ -12,10 +12,10 @@ function Contact() {
 
     emailjs
       .sendForm(
-        "service_tbp76od",     // 🔴 your Service ID
-        "template_mpjg8bj",    // 🔴 your Template ID
+        "service_tbp76od",     
+        "template_mpjg8bj",   
         form.current,
-        "gEEh5Oz1789OzzDwx"           // 🔴 your Public Key
+        "gEEh5Oz1789OzzDwx"           
       )
       .then(
         () => {
