@@ -20,7 +20,7 @@ function About() {
 
         {/* Optional Graphic / Placeholder Box */}
         <div className="flex-1">
-          <div className="w-full h-64 bg-gradient-to-tr from-blue-500 via-purple-500 to-pink-500 rounded-lg shadow-lg flex items-center justify-center text-white text-2xl font-bold">
+          <div className="w-full h-64 bg-gradient-to from-blue-500 via-purple-500 to-pink-500 rounded-lg shadow-lg flex items-center justify-center text-white text-2xl font-bold">
             Mern Stack Developer
           </div>
         </div>

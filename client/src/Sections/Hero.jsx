@@ -5,7 +5,7 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="h-screen flex flex-col justify-center items-center text-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white px-6"
+      className="h-screen flex flex-col justify-center items-center text-center bg-gradient-to from-blue-500 via-purple-500 to-pink-500 text-white px-6"
     >
       <h1 className="text-5xl md:text-6xl font-bold mb-4">
         Hi, I'm Shashwat Srivastava
