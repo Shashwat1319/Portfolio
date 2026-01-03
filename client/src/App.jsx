@@ -12,7 +12,6 @@ function App() {
     <Router>
       <div className="flex flex-col min-h-screen">
         <Navbar />
-
         <Routes>
           {/* Single Page Portfolio */}
           <Route
