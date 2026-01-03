@@ -39,6 +39,7 @@ I am a **MERN stack developer** passionate about building efficient and scalable
 - A full-stack MERN app for tracking client projects, tasks, and deadlines.  
 - **Tech:** React, Node.js, Express.js, MongoDB  
 - Features authentication, CRUD operations, and RESTful API integration.
+-  **Live:** [View Site](https://projectrackerr.netlify.app/)  
 
 ### 3. **Other Projects**
 - Various web apps, plugins, and small-scale projects demonstrating skills in JavaScript, React, Node.js, and responsive design.
