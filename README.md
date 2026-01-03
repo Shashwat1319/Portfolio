@@ -50,7 +50,7 @@ I am a **MERN stack developer** passionate about building efficient and scalable
 I am actively seeking opportunities in **web development** where I can contribute and grow. Feel free to reach out via:  
 
 - **Email:** [shaswatsrivastava1319@gmail.com](mailto:shaswatsrivastava1319@gmail.com)  
-- **LinkedIn:** [linkedin.com/in/shashwat-srivastava](https://www.linkedin.com/in/shashwat-srivastava)  
+- **LinkedIn:** [linkedin.com/in/shashwat-srivastava](https://www.linkedin.com/in/shaswatsrivastava131/)  
 - **GitHub:** [github.com/Shashwat1319](https://github.com/Shashwat1319)  
 
 ---
