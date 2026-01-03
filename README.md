@@ -1,59 +1,66 @@
-# My Portfolio
+# Shashwat Srivastava – Web Developer Portfolio
 
-A simple, responsive personal portfolio website to showcase my projects, skills, and contact information.
+Welcome to my personal portfolio, showcasing my skills, projects, and experience as a **full-stack web developer**. This website demonstrates my ability to create responsive, user-friendly, and modern web applications using the latest web technologies.
 
-## Table of Contents
-- [About Me](#about-me)
-- [Skills](#skills)
-- [Projects](#projects)
-- [Contact](#contact)
-- [Technologies](#technologies)
-- [License](#license)
+## 🌐 Live Portfolio
+[https://shashwat-srivastava.netlify.app](https://shashwat-srivastava.netlify.app)
+
+---
 
 ## About Me
-Hi! I'm **Shashwat Srivastava**, a passionate **MERN Stack Portfolio**.  
-I love creating clean and functional web applications, and I’m always looking to learn new technologies and improve my skills.
 
-- **Education:** B-Tech CSE 
-- **Location:**  Lucknow , Uttar Pradesh. 
-- **Interests:**  Problem Solving.
+I am a **MERN stack developer** passionate about building efficient and scalable web applications. I specialize in creating interactive front-end interfaces and seamless back-end functionalities. My goal is to turn ideas into functional, polished web solutions that provide value to users.
+
+- **Location:** Lucknow, India  
+- **Email:** [shaswatsrivastava1319@gmail.com](mailto:shaswatsrivastava1319@gmail.com)  
+- **LinkedIn:** [linkedin.com/in/shashwat-srivastava](https://www.linkedin.com/in/shashwat-srivastava)  
+- **GitHub:** [github.com/Shashwat1319](https://github.com/Shashwat1319)
+
+---
 
 ## Skills
-Here are some of the key skills I have developed:
 
-**Technical Skills:**  
-- HTML, CSS, JavaScript  
-- React, Node.js, Express.js  
-- MongoDB / SQL 
+**Frontend:** React.js, HTML5, CSS3, JavaScript, Vite, Heroicons  
+**Backend:** Node.js, Express.js, REST APIs  
+**Database:** MongoDB, Mongoose  
+**Version Control & Deployment:** Git, GitHub, Netlify  
+**Other Tools:** EmailJS, Vite, Responsive Design, SPA Routing  
 
-**Soft Skills:**  
-- Problem-solving  
-- Communication  
-- Teamwork  
+---
 
-## Projects
-Here are some of my recent projects:
+## Featured Projects
 
-1. **Project Name 1** 
-   - Description: [Short description of the project]  
-   - Technologies:  
-   - [Live Demo / GitHub Link](https://www.linkedin.com/in/shaswatsrivastava131/).
+### 1. **Personal Portfolio**
+- A responsive single-page application showcasing my work, skills, and contact information.  
+- **Tech:** React, Vite, EmailJS, CSS, Netlify  
+- **Live:** [View Site](https://shashwat-srivastava.netlify.app)  
 
+### 2. **Client Project Tracker**
+- A full-stack MERN app for tracking client projects, tasks, and deadlines.  
+- **Tech:** React, Node.js, Express.js, MongoDB  
+- Features authentication, CRUD operations, and RESTful API integration.
 
-## Contact
-You can reach me via:
+### 3. **Other Projects**
+- Various web apps, plugins, and small-scale projects demonstrating skills in JavaScript, React, Node.js, and responsive design.
 
-- **Email:** [shaswatsrivastava1319@gmail.com]  
-- **Phone:** +91 91180 11632 
-- **LinkedIn:** [LinkedIn Profile](#)  
-- **GitHub:** [GitHub Profile](#)
+---
 
-## Technologies
-This portfolio is designed using:
+## Contact Me
 
-- HTML, CSS, JavaScript  
-- React (optional)  
-- Bootstrap / Tailwind CSS (optional)  
+I am actively seeking opportunities in **web development** where I can contribute and grow. Feel free to reach out via:  
 
-## License
-This project is **open source** and available under the [MIT License](LICENSE).
+- **Email:** [shaswatsrivastava1319@gmail.com](mailto:shaswatsrivastava1319@gmail.com)  
+- **LinkedIn:** [linkedin.com/in/shashwat-srivastava](https://www.linkedin.com/in/shashwat-srivastava)  
+- **GitHub:** [github.com/Shashwat1319](https://github.com/Shashwat1319)  
+
+---
+
+## Support My Work
+
+If you like my work and want to support me, you can buy me a coffee:
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/shashwatsrivastava)
+
+---
+
+Crafted with care and code.  

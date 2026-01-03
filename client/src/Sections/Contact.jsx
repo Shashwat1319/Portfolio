@@ -9,7 +9,7 @@ function Contact() {
 
   const sendEmail = (e) => {
     e.preventDefault();
-
+    
     emailjs
       .sendForm(
         "service_tbp76od",     
