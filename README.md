@@ -13,7 +13,7 @@ I am a **MERN stack developer** passionate about building efficient and scalable
 
 - **Location:** Lucknow, India  
 - **Email:** [shaswatsrivastava1319@gmail.com](mailto:shaswatsrivastava1319@gmail.com)  
-- **LinkedIn:** [linkedin.com/in/shashwat-srivastava](https://www.linkedin.com/in/shashwat-srivastava)  
+- **LinkedIn:** [linkedin.com/in/shashwat-srivastava](https://www.linkedin.com/in/shashwatsrivastava131/)  
 - **GitHub:** [github.com/Shashwat1319](https://github.com/Shashwat1319)
 
 ---
