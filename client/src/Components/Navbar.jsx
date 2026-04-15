@@ -6,34 +6,36 @@ function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <nav className="fixed w-full bg-white shadow-md z-50">
-      <div className="max-w-6xl mx-auto px-6 flex justify-between items-center h-16">
-        <div className="text-2xl font-bold text-blue-600">Shashwat Srivastava</div>
+    <nav className="fixed w-full bg-slate-950/50 backdrop-blur-md border-b border-white/5 z-50">
+      <div className="max-w-6xl mx-auto px-6 flex justify-between items-center h-20">
+        <div className="text-2xl font-black tracking-tighter text-white">
+          SHASHWAT<span className="text-blue-500">.</span>
+        </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-6">
+        <ul className="hidden md:flex gap-8">
           <li>
-            <Link to="/" smooth={true} className="hover:text-blue-600 cursor-pointer">
+            <Link to="/" className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer">
               Home
             </Link>
           </li>
           <li>
-            <Link to="/about" smooth={true} className="hover:text-blue-600 cursor-pointer">
+            <Link to="/about" className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer">
               About
             </Link>
           </li>
           <li>
-            <Link to="/skills" smooth={true} className="hover:text-blue-600 cursor-pointer">
+            <Link to="/skills" className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer">
               Skills
             </Link>
           </li>
           <li>
-            <Link to="/projects" smooth={true} className="hover:text-blue-600 cursor-pointer">
+            <Link to="/projects" className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer">
               Projects
             </Link>
           </li>
           <li>
-            <Link to="/contact" smooth={true} className="hover:text-blue-600 cursor-pointer">
+            <Link to="/contact" className="text-sm font-medium text-slate-400 hover:text-white transition-colors cursor-pointer">
               Contact
             </Link>
           </li>

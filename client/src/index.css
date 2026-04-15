@@ -1,1 +1,46 @@
 @import "tailwindcss";
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+}
+
+:root {
+  font-family: "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-50 antialiased;
+  }
+}
+
+@layer utilities {
+  .animate-mesh-gradient {
+    background-size: 200% 200%;
+    animation: mesh-gradient 15s ease infinite;
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 shadow-2xl;
+  }
+
+  .glow-effect {
+    @apply relative overflow-hidden;
+  }
+
+  .glow-effect::after {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  }
+
+  .glow-effect:hover::after {
+    @apply opacity-100;
+  }
+}
+
+@keyframes mesh-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
