@@ -1,33 +1,68 @@
+import { motion } from "framer-motion"
+
 function About() {
   return (
-    <section id="about" className="py-20 px-6 md:px-20 bg-gray-50">
-      <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
-        {/* Text Content */}
-        <div className="flex-1">
-          <h2 className="text-4xl font-bold mb-6 text-gray-800">
-            About Me
-            <hr className="mt-5"/>
-          </h2>
-          <p className="text-gray-700 mb-4 leading-relaxed">
-            I’m <span className="font-semibold text-blue-600">Shashwat Srivastava</span>, a MERN Stack Developer from Lucknow, Uttar Pradesh. 
-            I build full-stack applications using <span className="font-medium text-blue-500">React.js, Node.js, Express.js, and MongoDB</span>.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            I focus on writing <span className="font-medium text-blue-500">maintainable code</span> and building practical, real-world applications. 
-            I graduated in July 2025 with a B-Tech in Computer Science Engineering from <span className="font-semibold">Rameshwaram Institute of Technology and Management</span>. 
-            I’m passionate about web development and continuously learning new technologies to enhance my skills.
-          </p>
-        </div>
+    <section id="about" className="py-24 px-6 md:px-20 bg-slate-950 relative overflow-hidden">
+      {/* Decorative background element */}
+      <div className="absolute top-1/2 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] -z-10"></div>
 
-        {/* Optional Graphic / Placeholder Box */}
-        <div className="flex-1">
-          <div className="w-full h-64 bg-gradient-to from-blue-500 via-purple-500 to-pink-500 rounded-lg shadow-lg flex items-center justify-center text-white text-2xl font-bold">
-          <img src="/myphoto.jpg" alt="" />
+      <div className="max-w-6xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col lg:flex-row items-center gap-16"
+        >
+          {/* Text Content */}
+          <div className="flex-1">
+            <h2 className="text-4xl md:text-5xl font-black mb-8 text-gradient">
+              About Me
+            </h2>
+            <div className="space-y-6 text-slate-400 text-lg leading-relaxed">
+              <p>
+                I’m <span className="font-semibold text-blue-400">Shashwat Srivastava</span>, 
+                a MERN Stack Developer based in Lucknow. I specialize in crafting 
+                <span className="text-white"> high-performance web experiences</span> that combine 
+                clean code with stunning aesthetics.
+              </p>
+              <p>
+                My journey in tech began with a curiosity for how things work under the hood, 
+                leading me to a B-Tech in Computer Science (2025). Today, I focus on building 
+                <span className="text-white"> scalable full-stack applications</span> using the 
+                latest industry standards.
+              </p>
+              <div className="flex gap-4 pt-4">
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold text-white">Lucknow</span>
+                  <span className="text-sm uppercase tracking-widest text-blue-500">Location</span>
+                </div>
+                <div className="w-px h-12 bg-white/10 mx-4"></div>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold text-white">B-Tech</span>
+                  <span className="text-sm uppercase tracking-widest text-blue-500">Degree</span>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+
+          {/* Visual Element */}
+          <div className="flex-1 relative group w-full max-w-md">
+            <div className="absolute inset-0 bg-blue-600/20 rounded-2xl blur-2xl group-hover:bg-blue-600/30 transition-all duration-500"></div>
+            <div className="relative glass-card rounded-2xl p-2 aspect-square flex items-center justify-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
+              <img 
+                src="/myphoto.jpg" 
+                alt="Shashwat Srivastava" 
+                className="w-full h-full object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
+              />
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
 }
 
 export default About
+

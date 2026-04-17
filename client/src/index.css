@@ -2,15 +2,30 @@
 
 @theme {
   --font-inter: "Inter", sans-serif;
+  --color-brand-blue: #3b82f6;
+  --color-brand-purple: #8b5cf6;
 }
 
 :root {
   font-family: "Inter", sans-serif;
+  color-scheme: dark;
 }
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-50 antialiased;
+    @apply bg-slate-950 text-slate-50 antialiased selection:bg-blue-500/30;
+    overflow-x: hidden;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-950;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
   }
 }
 
@@ -21,8 +36,9 @@
   }
 
   .glass-card {
-    @apply bg-white/5 backdrop-blur-lg border border-white/10 shadow-2xl;
+    @apply relative overflow-hidden bg-white/[0.03] backdrop-blur-lg border border-white/[0.08] shadow-2xl transition-all duration-300 hover:bg-white/[0.06] hover:border-white/[0.15];
   }
+
 
   .glow-effect {
     @apply relative overflow-hidden;
@@ -30,12 +46,20 @@
 
   .glow-effect::after {
     content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 130, 246, 0.15) 0%, transparent 80%);
   }
 
   .glow-effect:hover::after {
     @apply opacity-100;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/50;
+  }
+
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500;
   }
 }
 
@@ -43,4 +67,4 @@
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
-}
+}

@@ -1,56 +1,67 @@
-# 🚀 Professional Full-Stack Portfolio
-### Shashwat Srivastava | MERN Stack Developer & Backend Architect
+# Shashwat Srivastava – Web Developer Portfolio
 
-A high-performance, responsive portfolio built to showcase engineering expertise in modern web development. Featuring zero-friction navigation, sleek premium design, and automated contact management.
+Welcome to my personal portfolio, showcasing my skills, projects, and experience as a **full-stack web developer**. This website demonstrates my ability to create responsive, user-friendly, and modern web applications using the latest web technologies.
 
-**[🌐 View Live Portfolio](https://shashwat-srivastava.netlify.app)**
-
----
-
-## 🛠️ The Tech Stack
-
-This project leverages the **Vite + React** ecosystem for high-performance frontend delivery and **Node.js** for backend logic.
-
-- **Frontend:** React.js, Vite, JavaScript (ES6+), Heroicons
-- **Styling:** Modern CSS3 (Responsive Design, Flexbox, Grid)
-- **Integrations:** EmailJS (Client-side SMTP handling)
-- **Deployment:** Netlify (CI/CD integration)
-- **Architecture:** Single-Page Application (SPA) with optimized routing
+## 🌐 Live Portfolio
+[https://shashwat-srivastava.netlify.app](https://shashwat-srivastava.netlify.app)
 
 ---
 
-## ✨ Key Features
+## About Me
 
-- **🚀 Performance Optimized:** Built with Vite for nearly instant load times and optimized asset delivery.
-- **📱 Fully Responsive:** Seamless experience across Mobile, Tablet, and Desktop devices.
-- **📧 Automated Contact System:** Integrated SMTP handling through EmailJS for direct engagement without a custom mail server.
-- **💎 Premium UX:** Custom-crafted micro-interactions, smooth transitions, and a clean "Backend Engineer" aesthetic.
+I am a **MERN stack developer** passionate about building efficient and scalable web applications. I specialize in creating interactive front-end interfaces and seamless back-end functionalities. My goal is to turn ideas into functional, polished web solutions that provide value to users.
 
----
-
-## 📂 Project Structure
-
-- `/client`: React.js source code, components, and assets.
-- `/public`: Static assets and global configuration.
+- **Location:** Lucknow, India  
+- **Email:** [shaswatsrivastava1319@gmail.com](mailto:shaswatsrivastava1319@gmail.com)  
+- **LinkedIn:** [linkedin.com/in/shashwat-srivastava](https://www.linkedin.com/in/shashwatsrivastava131/)  
+- **GitHub:** [github.com/Shashwat1319](https://github.com/Shashwat1319)
 
 ---
 
-## 🚀 Deployment & Local Setup
+## Skills
 
-To run this project locally:
+**Frontend:** React.js, HTML5, CSS3, JavaScript, Vite, Heroicons  
+**Backend:** Node.js, Express.js, REST APIs  
+**Database:** MongoDB, Mongoose  
+**Version Control & Deployment:** Git, GitHub, Netlify  
+**Other Tools:** EmailJS, Vite, Responsive Design, SPA Routing  
 
-1. Clone the repository: `git clone https://github.com/Shashwat1319/Portfolio.git`
-2. Navigate to client: `cd client`
-3. Install dependencies: `npm install`
-4. Start dev server: `npm run dev`
+---
+
+## Featured Projects
+
+### 1. **Personal Portfolio**
+- A responsive single-page application showcasing my work, skills, and contact information.  
+- **Tech:** React, Vite, EmailJS, CSS, Netlify  
+- **Live:** [View Site](https://shashwat-srivastava.netlify.app)  
+
+### 2. **Client Project Tracker**
+- A full-stack MERN app for tracking client projects, tasks, and deadlines.  
+- **Tech:** React, Node.js, Express.js, MongoDB  
+- Features authentication, CRUD operations, and RESTful API integration.
+-  **Live:** [View Site](https://projectrackerr.netlify.app/)  
+
+### 3. **Other Projects**
+- Various web apps, plugins, and small-scale projects demonstrating skills in JavaScript, React, Node.js, and responsive design.
 
 ---
 
-## 📫 Connect with me
+## Contact Me
 
-- 💼 **LinkedIn:** [shashwat-srivastava](https://linkedin.com/in/shashwat-srivastava)
-- 📧 **Email:** [shaswatsrivastava1319@gmail.com](mailto:shaswatsrivastava1319@gmail.com)
-- 🤖 **Main Project:** Checkout my [Telegram Automation Engine](https://github.com/Shashwat1319/telegram)
+I am actively seeking opportunities in **web development** where I can contribute and grow. Feel free to reach out via:  
+
+- **Email:** [shaswatsrivastava1319@gmail.com](mailto:shaswatsrivastava1319@gmail.com)  
+- **LinkedIn:** [linkedin.com/in/shashwat-srivastava](https://www.linkedin.com/in/shaswatsrivastava131/)   
+- **GitHub:** [github.com/Shashwat1319](https://github.com/Shashwat1319)  
 
 ---
-*"Turning complex requirements into elegant, scalable solutions."*
+
+## Support My Work
+
+If you like my work and want to support me, you can buy me a coffee:
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/shashwatsrivastava)
+
+---
+
+Crafted with care and code.  
