@@ -22,15 +22,14 @@ function About() {
             <div className="space-y-6 text-slate-400 text-lg leading-relaxed">
               <p>
                 I’m <span className="font-semibold text-blue-400">Shashwat Srivastava</span>, 
-                a MERN Stack Developer based in Lucknow. I specialize in crafting 
-                <span className="text-white"> high-performance web experiences</span> that combine 
-                clean code with stunning aesthetics.
+                a Full-Stack & Backend Engineer based in Lucknow. I specialize in architecting 
+                <span className="text-white"> robust MERN applications</span>, building scalable APIs, 
+                and automating complex data-driven workflows.
               </p>
               <p>
-                My journey in tech began with a curiosity for how things work under the hood, 
-                leading me to a B-Tech in Computer Science (2025). Today, I focus on building 
-                <span className="text-white"> scalable full-stack applications</span> using the 
-                latest industry standards.
+                Having completed my B-Tech in Computer Science, my work revolves around solving real-world problems with code. From developing 
+                <span className="text-white"> autonomous automation systems</span> to integrating AI services, 
+                I thrive on turning complex business requirements into sleek, high-performance digital experiences.
               </p>
               <div className="flex gap-4 pt-4">
                 <div className="flex flex-col">

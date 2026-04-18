@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import CustomCursor from "./Components/CustomCursor.jsx"
+import ScrollProgress from "./Components/ScrollProgress.jsx"
 import Navbar from "./Components/Navbar.jsx"
 import Footer from "./Sections/Footer.jsx"
 import Hero from "./Sections/Hero.jsx"
@@ -10,6 +12,8 @@ import Contact from "./Sections/Contact.jsx"
 function App() {
   return (
     <Router>
+      <ScrollProgress />
+      <CustomCursor />
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <Routes>
