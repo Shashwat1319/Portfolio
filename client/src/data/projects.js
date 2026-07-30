@@ -18,6 +18,16 @@ export const projects = [
     tech: ["Next.js", "Tailwind CSS", "Node.js", "Express.js", "GROQ AI", "MongoDB"],
     category: "ai",
   },
+  {
+    id: 3,
+    title: "AutoDev",
+    description:
+      "A free open-source toolkit that analyzes GitHub profiles (score out of 100), generates polished profile READMEs in multiple styles, and includes a CLI tool for automated git commits. Comes with a Chrome extension to display scores directly on GitHub profile pages. No login required.",
+    github: "https://github.com/Shashwat1319/autodev-agent",
+    live: "https://autodev-kappa.vercel.app",
+    tech: ["Python", "CLI", "Chrome Extension", "GitHub API", "Vercel"],
+    category: "tools",
+  },
 ]
 
 export const projectCategories = [
