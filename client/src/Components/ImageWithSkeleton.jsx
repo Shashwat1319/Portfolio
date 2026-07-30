@@ -21,7 +21,7 @@ function ImageWithSkeleton({ src, alt, className = "" }) {
           src={src}
           alt={alt}
           initial={{ opacity: 0 }}
-          animate={loaded ? { opacity: 1 } : { opacity: 0 }}
+          animate={loaded ? { opacity: 1 } : undefined}
           transition={{ duration: 0.4 }}
           onLoad={() => setLoaded(true)}
           onError={() => setError(true)}

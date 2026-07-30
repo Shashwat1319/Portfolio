@@ -104,7 +104,7 @@ function About() {
               </div>
               <div className="pt-4 flex gap-4">
                 <a
-                  href="/resume.pdf"
+                  href="/ShashwatResume.pdf"
                   download
                   className="group relative inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white text-sm font-bold rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(37,99,235,0.4)]"
                 >

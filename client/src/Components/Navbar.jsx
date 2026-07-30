@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from "react"
 import { Link } from "react-router-dom"
 import { Link as ScrollLink } from "react-scroll"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 
 function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,12 +53,9 @@ function Navbar() {
           to="/"
           className="text-2xl font-black tracking-tighter text-white cursor-pointer no-underline"
         >
-          <motion.span
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
+          <span>
             SHASHWAT<span className="text-blue-500">.</span>
-          </motion.span>
+          </span>
         </Link>
 
         <ul className="hidden md:flex gap-8">
@@ -91,45 +89,43 @@ function Navbar() {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm md:hidden z-40"
-              onClick={closeMenu}
-              aria-hidden="true"
-            />
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="relative md:hidden bg-slate-900/95 backdrop-blur-2xl border-b border-white/5 overflow-hidden z-40"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Navigation menu"
-            >
-              <ul className="flex flex-col gap-4 px-6 py-8">
-                {navLinks.map((link) => (
-                  <li key={link.to}>
-                    <ScrollLink
-                      to={link.to}
-                      smooth={true}
-                      onClick={closeMenu}
-                      className="text-lg font-medium text-slate-300 hover:text-white block transition-colors"
-                      tabIndex={open ? 0 : -1}
-                    >
-                      {link.name}
-                    </ScrollLink>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {open && (
+        <>
+          <motion.div
+            key="backdrop"
+            initial={prefersReducedMotion ? {} : { opacity: 0 }}
+            animate={prefersReducedMotion ? {} : { opacity: 1 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm md:hidden z-40"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+          <motion.div
+            key="menu"
+            initial={prefersReducedMotion ? {} : { opacity: 0, height: 0 }}
+            animate={prefersReducedMotion ? {} : { opacity: 1, height: "auto" }}
+            className="relative md:hidden bg-slate-900/95 backdrop-blur-2xl border-b border-white/5 overflow-hidden z-40"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+          >
+            <ul className="flex flex-col gap-4 px-6 py-8">
+              {navLinks.map((link) => (
+                <li key={link.to}>
+                  <ScrollLink
+                    to={link.to}
+                    smooth={true}
+                    onClick={closeMenu}
+                    className="text-lg font-medium text-slate-300 hover:text-white block transition-colors"
+                    tabIndex={open ? 0 : -1}
+                  >
+                    {link.name}
+                  </ScrollLink>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </>
+      )}
     </nav>
   )
 }

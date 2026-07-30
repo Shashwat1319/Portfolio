@@ -226,13 +226,10 @@ function Contact() {
                     maxLength={MAX_MESSAGE_LENGTH}
                     placeholder="Your message here..."
                     onBlur={handleBlur}
-                    onChange={(e) => {
-                      handleChange(e)
-                      autoResize(e)
-                    }}
+                    onChange={handleChange}
                     onInput={autoResize}
                     aria-invalid={touched.message && errors.message ? "true" : "false"}
-                    aria-describedby={errors.message ? "message-error" : "message-count"}
+                    aria-describedby={errors.message ? "message-error message-count" : "message-count"}
                     className={`w-full bg-slate-900/50 border rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-1 transition-all resize-none overflow-hidden ${
                       touched.message && errors.message
                         ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"

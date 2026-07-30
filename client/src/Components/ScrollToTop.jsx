@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { Link } from "react-scroll"
 
 function ScrollToTop() {
   const [visible, setVisible] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,9 +18,9 @@ function ScrollToTop() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
+          initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.5 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
+          exit={prefersReducedMotion ? {} : { opacity: 0, scale: 0.5 }}
           transition={{ duration: 0.2 }}
           className="fixed bottom-8 right-8 z-40"
         >

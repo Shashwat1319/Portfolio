@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { Link } from "react-router-dom"
 
 function Footer() {
   const currentYear = new Date().getFullYear()
@@ -30,13 +30,12 @@ function Footer() {
   return (
     <footer className="py-12 px-6 md:px-20 bg-slate-950 border-t border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="text-2xl font-black tracking-tighter text-white"
+        <Link
+          to="/"
+          className="text-2xl font-black tracking-tighter text-white no-underline"
         >
           SHASHWAT<span className="text-blue-500">.</span>
-        </motion.div>
+        </Link>
 
         <div className="flex items-center gap-6">
           {socialLinks.map((link) => (

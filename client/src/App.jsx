@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, useLocation, Link } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
 import { HelmetProvider, Helmet } from "react-helmet-async"
 import CustomCursor from "./Components/CustomCursor.jsx"
@@ -123,6 +123,25 @@ function AppContent() {
               element={
                 <PageTransition>
                   <Contact />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <PageTransition>
+                  <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
+                    <h1 className="text-8xl font-black text-gradient mb-4">404</h1>
+                    <p className="text-xl text-slate-400 mb-8 max-w-md">
+                      Page not found. The page you&apos;re looking for doesn&apos;t exist.
+                    </p>
+                    <Link
+                      to="/"
+                      className="px-8 py-4 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)]"
+                    >
+                      Back to Home
+                    </Link>
+                  </div>
                 </PageTransition>
               }
             />

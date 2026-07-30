@@ -42,7 +42,7 @@ function ProjectCard({ project, index }) {
             <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
               {project.title}
             </h3>
-            <span className="text-slate-600 font-mono text-xs">0{project.id}</span>
+            <span className="text-slate-600 font-mono text-xs">{String(project.id).padStart(2, "0")}</span>
           </div>
 
           <p className="text-slate-400 mb-6 line-clamp-3 text-sm leading-relaxed">
