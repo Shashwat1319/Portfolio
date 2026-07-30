@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react"
+import { Link } from "react-router-dom"
 import { Link as ScrollLink } from "react-scroll"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -47,8 +48,8 @@ function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <a
-          href="/"
+        <Link
+          to="/"
           className="text-2xl font-black tracking-tighter text-white cursor-pointer no-underline"
         >
           <motion.span
@@ -57,7 +58,7 @@ function Navbar() {
           >
             SHASHWAT<span className="text-blue-500">.</span>
           </motion.span>
-        </a>
+        </Link>
 
         <ul className="hidden md:flex gap-8">
           {navLinks.map((link) => (

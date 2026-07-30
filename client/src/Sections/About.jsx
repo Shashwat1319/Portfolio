@@ -65,7 +65,7 @@ function About() {
 
   const totalProjects = projects.length
   const totalSkills = skillCategories.reduce((sum, cat) => sum + cat.skills.length, 0)
-  const yearsExp = new Date().getFullYear() - START_YEAR
+  const yearsExp = Math.max(1, new Date().getFullYear() - START_YEAR)
 
   return (
     <section id="about" className="py-24 px-6 md:px-20 bg-slate-950 relative overflow-hidden">

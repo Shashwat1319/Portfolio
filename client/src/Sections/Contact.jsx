@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import { motion } from "framer-motion"
 import emailjs from "@emailjs/browser"
 import Swal from "sweetalert2"
@@ -11,10 +11,6 @@ function Contact() {
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [charCount, setCharCount] = useState(0)
-
-  useEffect(() => {
-    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
-  }, [])
 
   const validate = (name, value) => {
     switch (name) {
