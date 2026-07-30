@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import ImageWithSkeleton from "../Components/ImageWithSkeleton.jsx"
+import { projects } from "../data/projects.js"
+import { skillCategories } from "../data/skills.jsx"
+
+const START_YEAR = 2024
 
 function useCountUp(end, duration = 2000, startCounting = false) {
   const [count, setCount] = useState(0)
@@ -59,6 +63,10 @@ function StatItem({ value, label, suffix = "" }) {
 function About() {
   const prefersReducedMotion = useReducedMotion()
 
+  const totalProjects = projects.length
+  const totalSkills = skillCategories.reduce((sum, cat) => sum + cat.skills.length, 0)
+  const yearsExp = new Date().getFullYear() - START_YEAR
+
   return (
     <section id="about" className="py-24 px-6 md:px-20 bg-slate-950 relative overflow-hidden">
       <div className="absolute top-1/2 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] -z-10" />
@@ -88,11 +96,11 @@ function About() {
                 I thrive on turning complex business requirements into sleek, high-performance digital experiences.
               </p>
               <div className="flex gap-4 pt-4">
-                <StatItem value={2} label="Projects" suffix="+" />
+                <StatItem value={totalProjects} label="Projects" suffix="+" />
                 <div className="w-px h-12 bg-white/10 mx-4" />
-                <StatItem value={1} label="Year Exp" suffix="+" />
+                <StatItem value={yearsExp} label="Year Exp" suffix="+" />
                 <div className="w-px h-12 bg-white/10 mx-4" />
-                <StatItem value={12} label="Skills" suffix="+" />
+                <StatItem value={totalSkills} label="Skills" suffix="+" />
               </div>
               <div className="pt-4 flex gap-4">
                 <a
