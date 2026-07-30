@@ -17,7 +17,6 @@
     overflow-x: hidden;
   }
 
-  /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -27,6 +26,21 @@
   ::-webkit-scrollbar-thumb {
     @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
   }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-blue-500/50 ring-offset-2 ring-offset-slate-950 rounded-lg;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer utilities {
@@ -35,17 +49,22 @@
     animation: mesh-gradient 15s ease infinite;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .animate-mesh-gradient {
+      animation: none;
+    }
+  }
+
   .glass-card {
     @apply relative overflow-hidden bg-white/[0.03] backdrop-blur-lg border border-white/[0.08] shadow-2xl transition-all duration-300 hover:bg-white/[0.06] hover:border-white/[0.15];
   }
-
 
   .glow-effect {
     @apply relative overflow-hidden;
   }
 
   .glow-effect::after {
-    content: '';
+    content: "";
     @apply absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none;
     background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 130, 246, 0.15) 0%, transparent 80%);
   }
@@ -64,7 +83,13 @@
 }
 
 @keyframes mesh-gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
