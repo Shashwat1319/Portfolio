@@ -19,7 +19,7 @@ function ProjectCard({ project, index }) {
         <div className="relative aspect-video overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent z-10 opacity-60 group-hover:opacity-40 transition-opacity" />
           <ImageWithSkeleton
-            src={`https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&q=80&w=800`}
+            src={project.image}
             alt={project.title}
             className="w-full h-full transition-transform duration-700 group-hover:scale-110"
           />

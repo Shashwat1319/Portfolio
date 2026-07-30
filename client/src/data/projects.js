@@ -8,6 +8,7 @@ export const projects = [
     live: "https://projectrackerr.netlify.app/",
     tech: ["React", "Node.js", "Express.js", "MongoDB"],
     category: "fullstack",
+    image: "https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ export const projects = [
     live: "https://aura-virid-iota-kappa.vercel.app/",
     tech: ["Next.js", "Tailwind CSS", "Node.js", "Express.js", "GROQ AI", "MongoDB"],
     category: "ai",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ export const projects = [
     live: "https://autodev-kappa.vercel.app",
     tech: ["Next.js 14", "TypeScript", "Node.js", "Tailwind CSS", "Chrome Extension", "GitHub API", "Vercel"],
     category: "tools",
+    image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=800",
   },
 ]
 

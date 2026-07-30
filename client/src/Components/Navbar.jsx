@@ -47,13 +47,17 @@ function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="text-2xl font-black tracking-tighter text-white cursor-pointer"
+        <a
+          href="/"
+          className="text-2xl font-black tracking-tighter text-white cursor-pointer no-underline"
         >
-          SHASHWAT<span className="text-blue-500">.</span>
-        </motion.div>
+          <motion.span
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            SHASHWAT<span className="text-blue-500">.</span>
+          </motion.span>
+        </a>
 
         <ul className="hidden md:flex gap-8">
           {navLinks.map((link) => (

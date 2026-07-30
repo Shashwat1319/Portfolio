@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shashwat-srivastava.netlify.app/sitemap.xml

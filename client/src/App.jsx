@@ -12,6 +12,31 @@ import Skills from "./Sections/Skills.jsx"
 import Projects from "./Sections/Projects.jsx"
 import Contact from "./Sections/Contact.jsx"
 
+const SITE_URL = "https://shashwat-srivastava.netlify.app"
+
+const routeMeta = {
+  "/": {
+    title: "Shashwat Srivastava | MERN Stack Developer Portfolio",
+    description: "Full-Stack & Backend Engineer specializing in MERN applications, scalable APIs, and automation. Based in Lucknow, India.",
+  },
+  "/about": {
+    title: "About | Shashwat Srivastava",
+    description: "Learn about Shashwat Srivastava — a MERN Stack Developer from Lucknow with expertise in React, Node.js, and scalable backend systems.",
+  },
+  "/skills": {
+    title: "Skills | Shashwat Srivastava",
+    description: "Technical skills of Shashwat Srivastava — Frontend (React, JavaScript, Tailwind), Backend (Node.js, Express), Database (MongoDB), and DevOps tools.",
+  },
+  "/projects": {
+    title: "Projects | Shashwat Srivastava",
+    description: "Portfolio projects by Shashwat Srivastava — Client Project Tracker, Aura AI, AutoDev, and more full-stack applications.",
+  },
+  "/contact": {
+    title: "Contact | Shashwat Srivastava",
+    description: "Get in touch with Shashwat Srivastava for web development opportunities, freelance projects, or collaboration.",
+  },
+}
+
 function PageTransition({ children }) {
   return (
     <motion.div
@@ -37,20 +62,27 @@ function HomePage() {
   )
 }
 
+function RouteMeta({ path }) {
+  const meta = routeMeta[path] || routeMeta["/"]
+  return (
+    <Helmet>
+      <title>{meta.title}</title>
+      <meta name="description" content={meta.description} />
+      <meta property="og:title" content={meta.title} />
+      <meta property="og:description" content={meta.description} />
+      <meta property="og:url" content={`${SITE_URL}${path}`} />
+      <meta name="twitter:title" content={meta.title} />
+      <meta name="twitter:description" content={meta.description} />
+    </Helmet>
+  )
+}
+
 function AppContent() {
   const location = useLocation()
 
   return (
     <>
-      <Helmet>
-        <title>Shashwat Srivastava | MERN Stack Developer</title>
-        <meta name="description" content="Full-Stack & Backend Engineer specializing in MERN applications, scalable APIs, and automation. Based in Lucknow, India." />
-        <meta name="keywords" content="MERN Stack, React, Node.js, Full Stack Developer, Portfolio, Web Developer" />
-        <meta name="author" content="Shashwat Srivastava" />
-        <meta property="og:title" content="Shashwat Srivastava | MERN Stack Developer" />
-        <meta property="og:description" content="Full-Stack & Backend Engineer specializing in MERN applications, scalable APIs, and automation." />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <RouteMeta path={location.pathname} />
 
       <ScrollProgress />
       <CustomCursor />
