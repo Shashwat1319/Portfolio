@@ -25,7 +25,7 @@ export const projects = [
       "A free open-source toolkit that analyzes GitHub profiles (score out of 100), generates polished profile READMEs in multiple styles, and includes a CLI tool for automated git commits. Comes with a Chrome extension to display scores directly on GitHub profile pages. No login required.",
     github: "https://github.com/Shashwat1319/autodev-agent",
     live: "https://autodev-kappa.vercel.app",
-    tech: ["Python", "CLI", "Chrome Extension", "GitHub API", "Vercel"],
+    tech: ["Next.js 14", "TypeScript", "Node.js", "Tailwind CSS", "Chrome Extension", "GitHub API", "Vercel"],
     category: "tools",
   },
 ]
