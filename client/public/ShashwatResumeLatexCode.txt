@@ -2,7 +2,7 @@
 \documentclass[letterpaper,11pt]{article}
 
 \usepackage{latexsym}
-\usepackage[empty]{fullpage}
+\usepackage[letterpaper, top=0.5in, bottom=0.5in, left=0.6in, right=0.6in]{geometry}
 \usepackage{titlesec}
 \usepackage{marvosym}
 \usepackage[usenames,dvipsnames]{color}
@@ -21,11 +21,7 @@
 \renewcommand{\footrulewidth}{0pt}
 
 % Adjust margins
-\addtolength{\oddsidemargin}{-0.5in}
-\addtolength{\evensidemargin}{-0.5in}
-\addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-.7in}
-\addtolength{\textheight}{1.3in}
+% (handled by geometry package above)
 
 \urlstyle{same}
 
