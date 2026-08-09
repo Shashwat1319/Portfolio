@@ -62,10 +62,23 @@ function Hero() {
           <span className="text-white font-medium"> premium, scalable applications</span> with modern technology.
         </motion.p>
 
-        <motion.div
+        <motion.a
           variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          href="https://autodev-kappa.vercel.app/dashboard?user=Shashwat1319"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 mb-10 hover:scale-105 transition-transform"
+          aria-label="View my AutoDev GitHub score"
         >
+          <img
+            src="https://autodev-kappa.vercel.app/api/badge?username=Shashwat1319"
+            alt="My AutoDev GitHub Profile Score"
+            className="h-5 w-auto"
+          />
+          <span className="text-xs text-slate-400 hover:text-blue-400 transition-colors">my GitHub score</span>
+        </motion.a>
+
+        <motion.div
           <Link
             to="projects"
             smooth={true}
