@@ -79,6 +79,9 @@ function Hero() {
         </motion.a>
 
         <motion.div
+          variants={itemVariants}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
           <Link
             to="projects"
             smooth={true}
