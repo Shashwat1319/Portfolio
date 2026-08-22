@@ -35,9 +35,9 @@ export const projects = [
     id: 4,
     title: "SmartGahr",
     description:
-      "Revenue-generating automated lead generation system built with zero investment. Integrates Google Forms, Sheets, and WhatsApp for instant lead capture, local SEO driving 10-20 qualified leads/month, and automated WhatsApp status marketing for brand visibility.",
+      "Revenue-generating deal automation platform. Built automated pipeline converting 30 Amazon products into 180 unique deals across 6 formats. Engineered serverless click-tracking redirector with bot detection via Netlify Edge Functions. Developed SEO website with 38 programmatic deal pages and JSON-LD schema for organic traffic. Automated content pipeline managing 126 variants with posting history and dedup logic.",
     live: "https://smartgahr.com",
-    tech: ["Google Forms", "Google Sheets", "WhatsApp Business API", "Local SEO", "Automation"],
+    tech: ["Netlify Edge Functions", "JavaScript", "JSON-LD", "SEO Automation", "Amazon PA-API", "Node.js"],
     category: "tools",
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=800",
   },

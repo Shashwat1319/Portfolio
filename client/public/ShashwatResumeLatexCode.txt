@@ -154,10 +154,10 @@
           \resumeProjectHeading
           {\textbf{SmartGahr} $|$ \emph{\href{https://smartgahr.com}{Live}}}{Sep 2025 -- Present}
           \resumeItemListStart
-            \resumeItem{Built automated lead generation system generating \textdollar400K/year revenue with \textdollar0 investment.}
-            \resumeItem{Integrated 4 Google Forms \textrightarrow{} Sheets \textrightarrow{} WhatsApp automation for instant lead capture.}
-            \resumeItem{Implemented local SEO strategy driving 10-20 qualified leads/month.}
-            \resumeItem{Automated WhatsApp status marketing for brand visibility.}
+            \resumeItem{Built automated pipeline converting 30 Amazon products into 180 unique deals across 6 formats.}
+            \resumeItem{Engineered serverless click-tracking redirector with bot detection via Netlify Edge Functions.}
+            \resumeItem{Developed SEO website with 38 programmatic deal pages and JSON-LD schema for organic traffic.}
+            \resumeItem{Automated content pipeline managing 126 variants with posting history and dedup logic.}
           \resumeItemListEnd
     \resumeSubHeadingListEnd
 
