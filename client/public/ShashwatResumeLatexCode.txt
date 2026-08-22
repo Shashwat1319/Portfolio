@@ -86,7 +86,7 @@
 
 \begin{center}
     \textbf{\Huge \scshape Shashwat Srivastava} \\ \vspace{2pt}
-    {Full-Stack Developer | MERN Stack | REST API Development}
+    {Full-Stack Developer | MERN Stack | TypeScript | REST API | Production Systems}
     \vspace{2pt}\\
     \small +91-91180-11632 $|$ \href{mailto:shaswatsrivastava1319@gmail.com}{\underline{shaswatsrivastava1319@gmail.com}} $|$
     \href{https://linkedin.com/in/shashwatsrivastava131}{\underline{linkedin.com/in/shashwatsrivastava131}} $|$
@@ -119,8 +119,9 @@
         \resumeItem{Developed 5+ production-ready full-stack modules using React, Node.js, and MongoDB, improving feature delivery speed.}
         \resumeItem{Designed and secured REST APIs with JWT authentication and role-based access control, reducing unauthorized route access risks.  }
         \resumeItem{Optimized MongoDB queries using indexing, improving API response time. } 
-       \resumeItem{Fixed 20+ production bugs and improved application stability across live deployments.}
-      \resumeItemListEnd
+\resumeItem{Fixed 20+ production bugs and improved application stability across live deployments.}
+        \resumeItem{Introduced TypeScript for new modules, improving type safety and reducing runtime errors in production.}
+       \resumeItemListEnd
       \resumeSubheading
 {Software Developer Intern | Circuit Master AI}{Jan 2026 -- Present}{}{}
 \resumeItemListStart
