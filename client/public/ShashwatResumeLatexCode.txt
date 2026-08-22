@@ -152,7 +152,7 @@
             \resumeItem{Open-source GitHub profile analyzer with scoring, README generation, CLI tool, and Chrome extension.}
           \resumeItemListEnd
           \resumeProjectHeading
-          {\textbf{SmartGahr} $|$ \emph{\href{https://smartgahr.com}{Live}}}{Sep 2025 -- Present}
+          {\textbf{SmartGahr} $|$ \emph{\href{https://t.me/smartgahr}{Live}}}{Sep 2025 -- Present}
           \resumeItemListStart
             \resumeItem{Built automated pipeline converting 30 Amazon products into 180 unique deals across 6 formats.}
             \resumeItem{Engineered serverless click-tracking redirector with bot detection via Netlify Edge Functions.}
