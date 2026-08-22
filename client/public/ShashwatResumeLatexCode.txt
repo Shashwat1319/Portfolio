@@ -151,6 +151,14 @@
           \resumeItemListStart
             \resumeItem{Open-source GitHub profile analyzer with scoring, README generation, CLI tool, and Chrome extension.}
           \resumeItemListEnd
+          \resumeProjectHeading
+          {\textbf{SmartGahr} $|$ \emph{\href{https://smartgahr.com}{Live}}}{Sep 2025 -- Present}
+          \resumeItemListStart
+            \resumeItem{Built automated lead generation system generating \textdollar400K/year revenue with \textdollar0 investment.}
+            \resumeItem{Integrated 4 Google Forms \textrightarrow{} Sheets \textrightarrow{} WhatsApp automation for instant lead capture.}
+            \resumeItem{Implemented local SEO strategy driving 10-20 qualified leads/month.}
+            \resumeItem{Automated WhatsApp status marketing for brand visibility.}
+          \resumeItemListEnd
     \resumeSubHeadingListEnd
 
 %-----------EDUCATION-----------

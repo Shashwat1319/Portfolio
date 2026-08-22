@@ -31,6 +31,16 @@ export const projects = [
     category: "tools",
     image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&q=80&w=800",
   },
+  {
+    id: 4,
+    title: "SmartGahr",
+    description:
+      "Revenue-generating automated lead generation system built with zero investment. Integrates Google Forms, Sheets, and WhatsApp for instant lead capture, local SEO driving 10-20 qualified leads/month, and automated WhatsApp status marketing for brand visibility.",
+    live: "https://smartgahr.com",
+    tech: ["Google Forms", "Google Sheets", "WhatsApp Business API", "Local SEO", "Automation"],
+    category: "tools",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=800",
+  },
 ]
 
 export const projectCategories = [
