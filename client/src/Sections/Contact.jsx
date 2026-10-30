@@ -1,9 +1,28 @@
 import { useState, useRef } from "react"
 import { motion } from "framer-motion"
 import emailjs from "@emailjs/browser"
-import Swal from "sweetalert2"
+
+// sweetalert2 is only needed when the form is actually used, so it is
+// loaded on demand instead of sitting in the initial bundle
+const showSwal = (options) =>
+  import("sweetalert2").then(({ default: Swal }) =>
+    Swal.fire({
+      confirmButtonColor: "#3b82f6",
+      background: "#0f172a",
+      color: "#fff",
+      ...options,
+    })
+  )
 
 const MAX_MESSAGE_LENGTH = 1000
+
+// requires VITE_EMAILJS_* in a local .env (copy .env.example) — see README
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+const isEmailConfigured = Boolean(
+  EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY
+)
 
 function Contact() {
   const form = useRef(null)
@@ -55,6 +74,13 @@ function Contact() {
     el.style.height = el.scrollHeight + "px"
   }
 
+  const resetForm = () => {
+    form.current?.reset()
+    // reset() clears the value but leaves the auto-resized height behind
+    const messageField = form.current?.querySelector("textarea")
+    if (messageField) messageField.style.height = "auto"
+  }
+
   const sendEmail = (e) => {
     e.preventDefault()
     const formData = new FormData(form.current)
@@ -73,26 +99,30 @@ function Contact() {
 
     if (hasError) return
 
+    if (!isEmailConfigured) {
+      console.error(
+        "EmailJS is not configured. Copy client/.env.example to client/.env and set " +
+          "VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID and VITE_EMAILJS_PUBLIC_KEY."
+      )
+      showSwal({
+        title: "Contact form not configured",
+        text: "EmailJS keys are missing in this environment. Set the VITE_EMAILJS_* variables in a local .env file.",
+        icon: "warning",
+      })
+      return
+    }
+
     setIsSending(true)
 
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        form.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      )
+    emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form.current, EMAILJS_PUBLIC_KEY)
       .then(
         () => {
-          Swal.fire({
+          showSwal({
             title: "Message Sent!",
             text: "Thank you for reaching out. I will get back to you soon.",
             icon: "success",
-            confirmButtonColor: "#3b82f6",
-            background: "#0f172a",
-            color: "#fff",
           })
-          form.current.reset()
+          resetForm()
           setTouched({})
           setErrors({})
           setCharCount(0)
@@ -100,13 +130,10 @@ function Contact() {
         },
         (error) => {
           console.error(error)
-          Swal.fire({
+          showSwal({
             title: "Submission Failed",
             text: "Something went wrong. Please try again later.",
             icon: "error",
-            confirmButtonColor: "#3b82f6",
-            background: "#0f172a",
-            color: "#fff",
           })
           setIsSending(false)
         }
@@ -114,7 +141,7 @@ function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 px-6 md:px-20 bg-slate-950 relative overflow-hidden">
+    <section id="contact" className="relative isolate py-24 px-6 md:px-20 bg-slate-950 overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] -z-10" />
 
       <div className="max-w-6xl mx-auto">
@@ -137,7 +164,7 @@ function Contact() {
             <div className="space-y-8">
               <div className="flex items-center gap-6 group">
                 <div className="w-12 h-12 glass-card rounded-xl flex items-center justify-center text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                  <svg aria-hidden="true" focusable="false" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                 </div>
                 <div>
                   <h4 className="text-white font-bold">Email</h4>
@@ -147,7 +174,7 @@ function Contact() {
 
               <div className="flex items-center gap-6 group">
                 <div className="w-12 h-12 glass-card rounded-xl flex items-center justify-center text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                  <svg aria-hidden="true" focusable="false" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                 </div>
                 <div>
                   <h4 className="text-white font-bold">Location</h4>
@@ -161,7 +188,7 @@ function Contact() {
             <form ref={form} onSubmit={sendEmail} noValidate className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label htmlFor="from_name" className="text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">
+                  <label htmlFor="from_name" className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">
                     Name
                   </label>
                   <input
@@ -174,7 +201,7 @@ function Contact() {
                     onChange={handleChange}
                     aria-invalid={touched.from_name && errors.from_name ? "true" : "false"}
                     aria-describedby={errors.from_name ? "from_name-error" : undefined}
-                    className={`w-full bg-slate-900/50 border rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-1 transition-all ${
+                    className={`w-full bg-slate-900/50 border rounded-xl px-4 py-3 text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 transition-all ${
                       touched.from_name && errors.from_name
                         ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
                         : "border-white/10 focus:border-blue-500 focus:ring-blue-500/20"
@@ -187,7 +214,7 @@ function Contact() {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="from_email" className="text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">
+                  <label htmlFor="from_email" className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">
                     Email
                   </label>
                   <input
@@ -200,7 +227,7 @@ function Contact() {
                     onChange={handleChange}
                     aria-invalid={touched.from_email && errors.from_email ? "true" : "false"}
                     aria-describedby={errors.from_email ? "from_email-error" : undefined}
-                    className={`w-full bg-slate-900/50 border rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-1 transition-all ${
+                    className={`w-full bg-slate-900/50 border rounded-xl px-4 py-3 text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 transition-all ${
                       touched.from_email && errors.from_email
                         ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
                         : "border-white/10 focus:border-blue-500 focus:ring-blue-500/20"
@@ -214,7 +241,7 @@ function Contact() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">
+                <label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">
                   Message
                 </label>
                 <div className="relative">
@@ -230,7 +257,7 @@ function Contact() {
                     onInput={autoResize}
                     aria-invalid={touched.message && errors.message ? "true" : "false"}
                     aria-describedby={errors.message ? "message-error message-count" : "message-count"}
-                    className={`w-full bg-slate-900/50 border rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-1 transition-all resize-none overflow-hidden ${
+                    className={`w-full bg-slate-900/50 border rounded-xl px-4 py-3 text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 transition-all resize-none overflow-hidden ${
                       touched.message && errors.message
                         ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
                         : "border-white/10 focus:border-blue-500 focus:ring-blue-500/20"
@@ -239,7 +266,7 @@ function Contact() {
                   <span
                     id="message-count"
                     className={`absolute bottom-3 right-3 text-xs font-mono ${
-                      charCount > MAX_MESSAGE_LENGTH * 0.9 ? "text-amber-400" : "text-slate-600"
+                      charCount > MAX_MESSAGE_LENGTH * 0.9 ? "text-amber-400" : "text-slate-400"
                     }`}
                   >
                     {charCount}/{MAX_MESSAGE_LENGTH}
@@ -258,7 +285,7 @@ function Contact() {
               >
                 {isSending ? (
                   <span className="flex items-center justify-center gap-2">
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                    <svg aria-hidden="true" focusable="false" className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>

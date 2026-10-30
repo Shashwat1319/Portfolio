@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
-import { Link } from "react-scroll"
+import { Link } from "react-router-dom"
+import { handleSectionNav } from "../utils/sectionNav.js"
 
 function ScrollToTop() {
   const [visible, setVisible] = useState(false)
@@ -25,8 +26,8 @@ function ScrollToTop() {
           className="fixed bottom-8 right-8 z-40"
         >
           <Link
-            to="hero"
-            smooth={true}
+            to="/"
+            onClick={(e) => handleSectionNav(e, "hero")}
             aria-label="Scroll to top"
             className="flex items-center justify-center w-12 h-12 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all cursor-pointer active:scale-90"
           >

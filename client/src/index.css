@@ -17,6 +17,17 @@
     overflow-x: hidden;
   }
 
+  /* the custom ring replaces the OS pointer (see Components/CustomCursor.jsx);
+     the class only exists while that component is mounted */
+  @media (hover: hover) and (pointer: fine) {
+    html.has-custom-cursor,
+    html.has-custom-cursor *,
+    html.has-custom-cursor *::before,
+    html.has-custom-cursor *::after {
+      cursor: none !important;
+    }
+  }
+
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -27,8 +38,10 @@
     @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
   }
 
+  /* rings follow the element's own border-radius (box-shadow), so no
+     radius override is needed here */
   *:focus-visible {
-    @apply outline-none ring-2 ring-blue-500/50 ring-offset-2 ring-offset-slate-950 rounded-lg;
+    @apply outline-none ring-2 ring-blue-500/50 ring-offset-2 ring-offset-slate-950;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -59,26 +72,8 @@
     @apply relative overflow-hidden bg-white/[0.03] backdrop-blur-lg border border-white/[0.08] shadow-2xl transition-all duration-300 hover:bg-white/[0.06] hover:border-white/[0.15];
   }
 
-  .glow-effect {
-    @apply relative overflow-hidden;
-  }
-
-  .glow-effect::after {
-    content: "";
-    @apply absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none;
-    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 130, 246, 0.15) 0%, transparent 80%);
-  }
-
-  .glow-effect:hover::after {
-    @apply opacity-100;
-  }
-
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/50;
-  }
-
-  .text-gradient-primary {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500;
   }
 }
 

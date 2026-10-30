@@ -1,5 +1,6 @@
-import { Link } from "react-scroll"
+import { Link } from "react-router-dom"
 import { motion, useReducedMotion } from "framer-motion"
+import { handleSectionNav } from "../utils/sectionNav.js"
 
 function Hero() {
   const prefersReducedMotion = useReducedMotion()
@@ -20,7 +21,7 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="relative h-screen flex flex-col justify-center items-center text-center px-6 overflow-hidden bg-slate-950 animate-mesh-gradient"
+      className="relative isolate h-screen flex flex-col justify-center items-center text-center px-6 overflow-hidden bg-slate-950 animate-mesh-gradient"
       style={{
         backgroundImage: `radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
                           radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
@@ -83,8 +84,8 @@ function Hero() {
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Link
-            to="projects"
-            smooth={true}
+            to="/projects"
+            onClick={(e) => handleSectionNav(e, "projects")}
             className="group relative px-8 py-4 bg-blue-600 text-white rounded-full font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)]"
           >
             <span className="relative z-10">View Projects</span>
@@ -92,8 +93,8 @@ function Hero() {
           </Link>
 
           <Link
-            to="contact"
-            smooth={true}
+            to="/contact"
+            onClick={(e) => handleSectionNav(e, "contact")}
             className="px-8 py-4 bg-white/5 text-white border border-white/10 rounded-full font-bold backdrop-blur-md hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all active:scale-95 cursor-pointer"
           >
             Get in touch
@@ -107,7 +108,12 @@ function Hero() {
         transition={{ delay: prefersReducedMotion ? 0 : 2, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
-        <Link to="about" smooth={true} className="block animate-bounce cursor-pointer opacity-40 hover:opacity-100 transition-opacity" aria-label="Scroll to about section">
+        <Link
+          to="/about"
+          onClick={(e) => handleSectionNav(e, "about")}
+          className="block animate-bounce cursor-pointer opacity-40 hover:opacity-100 transition-opacity"
+          aria-label="Scroll to about section"
+        >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>

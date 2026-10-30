@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { handleSectionNav } from "../utils/sectionNav.js"
 
 function Footer() {
   const currentYear = new Date().getFullYear()
@@ -28,10 +29,11 @@ function Footer() {
   ]
 
   return (
-    <footer className="py-12 px-6 md:px-20 bg-slate-950 border-t border-white/5 relative overflow-hidden">
+    <footer className="relative isolate py-12 px-6 md:px-20 bg-slate-950 border-t border-white/5 overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
         <Link
           to="/"
+          onClick={(e) => handleSectionNav(e, "hero")}
           className="text-2xl font-black tracking-tighter text-white no-underline"
         >
           SHASHWAT<span className="text-blue-500">.</span>
@@ -47,7 +49,7 @@ function Footer() {
               className="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors tracking-widest uppercase group"
               aria-label={`Visit ${link.name}`}
             >
-              <span className="text-slate-500 group-hover:text-blue-400 transition-colors">
+              <span className="text-slate-400 group-hover:text-blue-400 transition-colors">
                 {link.icon}
               </span>
               <span className="hidden sm:inline">{link.name}</span>
@@ -55,7 +57,7 @@ function Footer() {
           ))}
         </div>
 
-        <p className="text-slate-500 text-sm font-medium">
+        <p className="text-slate-400 text-sm font-medium">
           &copy; {currentYear} Shashwat Srivastava. Crafted with care.
         </p>
       </div>

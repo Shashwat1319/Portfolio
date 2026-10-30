@@ -42,7 +42,7 @@ function ProjectCard({ project, index }) {
             <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
               {project.title}
             </h3>
-            <span className="text-slate-600 font-mono text-xs">{String(project.id).padStart(2, "0")}</span>
+            <span className="text-slate-400 font-mono text-xs" aria-hidden="true">{String(project.id).padStart(2, "0")}</span>
           </div>
 
           <p className="text-slate-400 mb-6 line-clamp-3 text-sm leading-relaxed">
@@ -94,10 +94,13 @@ function ProjectCard({ project, index }) {
               )}
             </div>
 
+            {/* falls back to the repo when there is no live demo; with neither,
+                the anchor renders inert (no href) rather than a dead click */}
             <a
               href={project.live || project.github}
               target="_blank"
               rel="noreferrer"
+              aria-label={`Learn more about ${project.title}`}
               className="text-blue-500 font-bold text-xs uppercase tracking-widest hover:text-blue-400 flex items-center gap-2 group/link"
             >
               Learn More

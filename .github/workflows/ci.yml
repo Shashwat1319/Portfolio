@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      # npm ci also fails if package.json and package-lock.json drift apart
+      - run: npm ci
+
+      - run: npm run lint
+
+      # the build needs no secrets: missing VITE_EMAILJS_* only disables the
+      # contact form (see client/.env.example)
+      - run: npm run build

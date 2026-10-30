@@ -53,8 +53,23 @@ Full-Stack & Backend Engineer based in Lucknow, India. I specialize in architect
 ```bash
 cd client
 npm install
+cp .env.example .env   # Windows: copy .env.example .env
 npm run dev
 ```
+
+### Environment variables
+
+Only the contact form needs configuration — three EmailJS keys, documented in
+[`client/.env.example`](client/.env.example):
+
+| Variable | Purpose |
+| --- | --- |
+| `VITE_EMAILJS_SERVICE_ID` | EmailJS service id |
+| `VITE_EMAILJS_TEMPLATE_ID` | EmailJS template id |
+| `VITE_EMAILJS_PUBLIC_KEY` | EmailJS public key |
+
+Without them everything else works; submitting the form shows a
+"Contact form not configured" warning instead of failing silently.
 
 Build: `npm run build` · Preview: `npm run preview` · Lint: `npm run lint`
 

@@ -68,7 +68,7 @@ function About() {
   const yearsExp = Math.max(1, new Date().getFullYear() - START_YEAR)
 
   return (
-    <section id="about" className="py-24 px-6 md:px-20 bg-slate-950 relative overflow-hidden">
+    <section id="about" className="relative isolate py-24 px-6 md:px-20 bg-slate-950 overflow-hidden">
       <div className="absolute top-1/2 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] -z-10" />
 
       <div className="max-w-6xl mx-auto">

@@ -3,7 +3,7 @@ import { skillCategories } from "../data/skills.jsx"
 
 function SkillLevel({ level }) {
   return (
-    <div className="flex gap-1" aria-label={`Skill level ${level} out of 5`}>
+    <div className="flex gap-1" role="img" aria-label={`Skill level ${level} out of 5`}>
       {Array.from({ length: 5 }, (_, i) => (
         <span
           key={i}

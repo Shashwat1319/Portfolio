@@ -12,8 +12,26 @@ function Projects() {
       ? projects
       : projects.filter((p) => p.category === activeCategory)
 
+  // roving focus for the tablist (Home/End/arrow keys, per WAI-ARIA tabs)
+  const handleTabKeyDown = (event) => {
+    const tabs = Array.from(event.currentTarget.querySelectorAll('[role="tab"]'))
+    const currentIndex = tabs.indexOf(document.activeElement)
+    if (currentIndex === -1) return
+
+    let nextIndex = null
+    if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % tabs.length
+    else if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + tabs.length) % tabs.length
+    else if (event.key === "Home") nextIndex = 0
+    else if (event.key === "End") nextIndex = tabs.length - 1
+
+    if (nextIndex === null) return
+    event.preventDefault()
+    tabs[nextIndex].focus()
+    tabs[nextIndex].click()
+  }
+
   return (
-    <section id="projects" className="py-24 px-6 md:px-20 bg-slate-950 relative overflow-hidden">
+    <section id="projects" className="relative isolate py-24 px-6 md:px-20 bg-slate-950 overflow-hidden">
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] -z-10" />
 
       <div className="max-w-7xl mx-auto">
@@ -34,12 +52,20 @@ function Projects() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex flex-wrap gap-3 mb-12" role="tablist" aria-label="Project categories">
+        <div
+          className="flex flex-wrap gap-3 mb-12"
+          role="tablist"
+          aria-label="Project categories"
+          onKeyDown={handleTabKeyDown}
+        >
           {projectCategories.map((cat) => (
             <button
               key={cat.value}
+              type="button"
+              id={`projects-tab-${cat.value}`}
               role="tab"
               aria-selected={activeCategory === cat.value}
+              aria-controls="projects-panel"
               onClick={() => setActiveCategory(cat.value)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all cursor-pointer ${
                 activeCategory === cat.value
@@ -61,6 +87,10 @@ function Projects() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory}
+              id="projects-panel"
+              role="tabpanel"
+              aria-labelledby={`projects-tab-${activeCategory}`}
+              tabIndex={0}
               initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={prefersReducedMotion ? {} : { opacity: 0, y: -10 }}
@@ -72,8 +102,15 @@ function Projects() {
                   <ProjectCard key={project.id} project={project} index={index} />
                 ))
               ) : (
-                <div className="col-span-full text-center py-16 text-slate-500">
-                  <svg className="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="col-span-full text-center py-16 text-slate-400">
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    className="w-16 h-16 mx-auto mb-4 opacity-50"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                   </svg>
                   <p className="text-lg font-medium">No projects in this category yet.</p>

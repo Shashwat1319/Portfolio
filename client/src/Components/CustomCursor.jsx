@@ -7,16 +7,28 @@ const CustomCursor = () => {
   const isHoveringRef = useRef(false)
   const rafRef = useRef(null)
 
+  // Position uses the standalone `translate` property so it can be updated on
+  // every frame without clobbering the hover `scale` (the old code wrote a
+  // combined `transform`, so moving the mouse snapped the ring back to scale 1).
   const updatePosition = useCallback(() => {
+    rafRef.current = null
     if (!cursorRef.current || !dotRef.current) return
 
     const { x, y } = mouseRef.current
-    cursorRef.current.style.transform = `translate(${x - 16}px, ${y - 16}px)`
-    dotRef.current.style.transform = `translate(${x - 4}px, ${y - 4}px)`
-    rafRef.current = null
+    cursorRef.current.style.translate = `${x - 16}px ${y - 16}px`
+    dotRef.current.style.translate = `${x - 4}px ${y - 4}px`
+    cursorRef.current.style.opacity = "1"
+    dotRef.current.style.opacity = "1"
   }, [])
 
   useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(hover: none)").matches) {
+      return undefined
+    }
+
+    // hides the OS cursor (see index.css) — only while this component is mounted
+    document.documentElement.classList.add("has-custom-cursor")
+
     const handleMouseMove = (e) => {
       mouseRef.current = { x: e.clientX, y: e.clientY }
       if (!rafRef.current) {
@@ -26,31 +38,26 @@ const CustomCursor = () => {
 
     const handleMouseOver = (e) => {
       const target = e.target
+      // note: index.css hides the OS cursor with `cursor: none !important`, so a
+      // getComputedStyle(...).cursor check would never match here anyway
       const isInteractive =
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
         target.closest("a") ||
         target.closest("button") ||
-        target.classList.contains("glass-card") ||
-        getComputedStyle(target).cursor === "pointer"
+        target.classList.contains("glass-card")
 
       if (isHoveringRef.current !== isInteractive) {
         isHoveringRef.current = isInteractive
         if (cursorRef.current) {
-          cursorRef.current.style.transform = isInteractive
-            ? `translate(${mouseRef.current.x - 32}px, ${mouseRef.current.y - 32}px) scale(1.5)`
-            : `translate(${mouseRef.current.x - 16}px, ${mouseRef.current.y - 16}px) scale(1)`
+          cursorRef.current.style.scale = isInteractive ? "1.5" : "1"
           cursorRef.current.style.backgroundColor = isInteractive ? "rgba(59, 130, 246, 0.2)" : "transparent"
           cursorRef.current.style.borderColor = isInteractive ? "rgba(139, 92, 246, 0.8)" : "rgb(59, 130, 246)"
         }
         if (dotRef.current) {
-          dotRef.current.style.transform = `translate(${mouseRef.current.x - 4}px, ${mouseRef.current.y - 4}px) scale(${isInteractive ? 0 : 1})`
+          dotRef.current.style.scale = isInteractive ? "0" : "1"
         }
       }
-    }
-
-    if (typeof window !== "undefined" && window.matchMedia("(hover: none)").matches) {
-      return
     }
 
     window.addEventListener("mousemove", handleMouseMove)
@@ -59,6 +66,7 @@ const CustomCursor = () => {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("mouseover", handleMouseOver)
+      document.documentElement.classList.remove("has-custom-cursor")
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
   }, [updatePosition])
@@ -71,22 +79,24 @@ const CustomCursor = () => {
     <>
       <div
         ref={cursorRef}
+        aria-hidden="true"
         className="fixed top-0 left-0 border-2 border-blue-500 rounded-full pointer-events-none z-[9999] shadow-[0_0_10px_rgba(59,130,246,0.5)]"
         style={{
           width: "32px",
           height: "32px",
-          transition: "background-color 0.3s, border-color 0.3s",
-          transform: "translate(0, 0)",
+          opacity: 0,
+          transition: "background-color 0.3s, border-color 0.3s, scale 0.3s, opacity 0.2s",
         }}
       />
       <div
         ref={dotRef}
+        aria-hidden="true"
         className="fixed top-0 left-0 bg-white rounded-full pointer-events-none z-[9999]"
         style={{
           width: "8px",
           height: "8px",
-          transition: "transform 0.15s ease-out",
-          transform: "translate(0, 0)",
+          opacity: 0,
+          transition: "translate 0.15s ease-out, scale 0.15s ease-out, opacity 0.2s",
         }}
       />
     </>
