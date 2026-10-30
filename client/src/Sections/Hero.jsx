@@ -53,6 +53,9 @@ function Hero() {
           className="text-5xl md:text-7xl lg:text-9xl font-black tracking-tighter mb-6 text-gradient"
         >
           Hi, I&apos;m <span className="text-blue-500">Shashwat</span>
+          {/* full name in the H1 so the page's main heading matches the name
+              people search for; visually hidden to keep the hero short */}
+          <span className="sr-only"> Srivastava</span>
         </motion.h1>
 
         <motion.p

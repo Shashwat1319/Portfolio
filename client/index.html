@@ -41,28 +41,49 @@
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://autodev-kappa.vercel.app" />
 
-    <!-- JSON-LD Structured Data -->
+    <!-- JSON-LD Structured Data: one @graph so Google links the Person entity
+         (the name people search) to this site (the result we want to rank) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Shashwat Srivastava",
-        "description": "Full-Stack & Backend Engineer specializing in MERN applications, scalable APIs, and automation. Based in Lucknow, India.",
-        "image": "https://shashwat-srivastava.netlify.app/myphoto.jpg",
-        "jobTitle": "MERN Stack Developer",
-        "alumniOf": "Computer Science & Engineering, B-Tech",
-        "knowsAbout": ["MERN Stack", "React", "Node.js", "MongoDB", "Express.js", "JavaScript", "REST APIs", "Git", "Tailwind CSS"],
-        "url": "https://shashwat-srivastava.netlify.app/",
-        "sameAs": [
-          "https://github.com/Shashwat1319",
-          "https://www.linkedin.com/in/shashwatsrivastava131/",
-          "https://x.com/Shashwat8965"
-        ],
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Lucknow",
-          "addressCountry": "India"
-        }
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://shashwat-srivastava.netlify.app/#person",
+            "name": "Shashwat Srivastava",
+            "description": "Full-Stack & Backend Engineer specializing in MERN applications, scalable APIs, and automation. Based in Lucknow, India.",
+            "image": "https://shashwat-srivastava.netlify.app/myphoto.jpg",
+            "jobTitle": "MERN Stack Developer",
+            "alumniOf": "Computer Science & Engineering, B-Tech",
+            "knowsAbout": ["MERN Stack", "React", "Node.js", "MongoDB", "Express.js", "JavaScript", "REST APIs", "Git", "Tailwind CSS"],
+            "url": "https://shashwat-srivastava.netlify.app/",
+            "sameAs": [
+              "https://github.com/Shashwat1319",
+              "https://www.linkedin.com/in/shashwatsrivastava131/",
+              "https://x.com/Shashwat8965"
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Lucknow",
+              "addressCountry": "India"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://shashwat-srivastava.netlify.app/#website",
+            "url": "https://shashwat-srivastava.netlify.app/",
+            "name": "Shashwat Srivastava",
+            "description": "Portfolio of Shashwat Srivastava — MERN Stack Developer specializing in MERN applications, scalable APIs, and automation.",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://shashwat-srivastava.netlify.app/#person" }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://shashwat-srivastava.netlify.app/#profilepage",
+            "url": "https://shashwat-srivastava.netlify.app/",
+            "mainEntity": { "@id": "https://shashwat-srivastava.netlify.app/#person" }
+          }
+        ]
       }
     </script>
   </head>
