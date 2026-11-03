@@ -66,6 +66,7 @@ function Projects() {
               role="tab"
               aria-selected={activeCategory === cat.value}
               aria-controls="projects-panel"
+              tabIndex={activeCategory === cat.value ? 0 : -1}
               onClick={() => setActiveCategory(cat.value)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all cursor-pointer ${
                 activeCategory === cat.value

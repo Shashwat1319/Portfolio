@@ -39,12 +39,14 @@ const CustomCursor = () => {
     const handleMouseOver = (e) => {
       const target = e.target
       // note: index.css hides the OS cursor with `cursor: none !important`, so a
-      // getComputedStyle(...).cursor check would never match here anyway
+      // getComputedStyle(...).cursor check would never match here anyway;
+      // text fields count as interactive so typing targets still get feedback
       const isInteractive =
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
         target.closest("a") ||
         target.closest("button") ||
+        target.closest("input, textarea, select, [contenteditable]") ||
         target.classList.contains("glass-card")
 
       if (isHoveringRef.current !== isInteractive) {
@@ -60,12 +62,23 @@ const CustomCursor = () => {
       }
     }
 
+    const handleMouseOut = (e) => {
+      // pointer left the window (no related target) — hide the ring instead
+      // of freezing it on screen until the mouse comes back
+      if (!e.relatedTarget && cursorRef.current && dotRef.current) {
+        cursorRef.current.style.opacity = "0"
+        dotRef.current.style.opacity = "0"
+      }
+    }
+
     window.addEventListener("mousemove", handleMouseMove)
     window.addEventListener("mouseover", handleMouseOver)
+    document.addEventListener("mouseout", handleMouseOut)
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("mouseover", handleMouseOver)
+      document.removeEventListener("mouseout", handleMouseOut)
       document.documentElement.classList.remove("has-custom-cursor")
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }

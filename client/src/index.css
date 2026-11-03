@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-  --font-inter: "Inter", sans-serif;
-  --color-brand-blue: #3b82f6;
-  --color-brand-purple: #8b5cf6;
-}
-
 :root {
   font-family: "Inter", sans-serif;
   color-scheme: dark;
@@ -42,6 +36,12 @@
      radius override is needed here */
   *:focus-visible {
     @apply outline-none ring-2 ring-blue-500/50 ring-offset-2 ring-offset-slate-950;
+  }
+
+  /* the skip-link target receives programmatic focus — a focus ring around
+     the entire page would just be noise */
+  #main-content:focus {
+    outline: none;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -6,6 +6,8 @@ import CustomCursor from "./Components/CustomCursor.jsx"
 import ScrollProgress from "./Components/ScrollProgress.jsx"
 import ScrollToTop from "./Components/ScrollToTop.jsx"
 import Navbar from "./Components/Navbar.jsx"
+import ErrorBoundary from "./Components/ErrorBoundary.jsx"
+import { markRouteChange } from "./utils/sectionNav.js"
 import Footer from "./Sections/Footer.jsx"
 import Hero from "./Sections/Hero.jsx"
 import About from "./Sections/About.jsx"
@@ -70,28 +72,39 @@ function HomePage() {
 }
 
 function RouteMeta({ path }) {
-  // unknown path (404) → own meta + noindex, instead of pretending to be the homepage
-  const meta = routeMeta[path] || notFoundMeta
-  const isKnownRoute = Boolean(routeMeta[path])
-  const url = `${SITE_URL}${path}`
+  // React Router matches /about/, /About etc. — normalize before the lookup
+  // so those variants don't get the 404 title + noindex
+  const key = path === "/" ? "/" : path.replace(/\/+$/, "").toLowerCase()
+  const meta = routeMeta[key]
+  const isKnownRoute = Boolean(meta)
+  const page = meta || notFoundMeta
+  const url = `${SITE_URL}${key}`
 
   return (
     <Helmet>
-      <title>{meta.title}</title>
-      <meta name="description" content={meta.description} />
+      <title>{page.title}</title>
+      <meta name="description" content={page.description} />
       {!isKnownRoute && <meta name="robots" content="noindex, follow" />}
-      <meta property="og:title" content={meta.title} />
-      <meta property="og:description" content={meta.description} />
+      <meta property="og:title" content={page.title} />
+      <meta property="og:description" content={page.description} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={OG_IMAGE} />
       <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={meta.title} />
-      <meta name="twitter:description" content={meta.description} />
+      <meta name="twitter:title" content={page.title} />
+      <meta name="twitter:description" content={page.description} />
       <meta name="twitter:image" content={OG_IMAGE} />
-      <link rel="canonical" href={url} />
+      {/* canonical only on real routes — a noindex 404 must not claim a URL */}
+      {isKnownRoute && <link rel="canonical" href={url} />}
     </Helmet>
   )
+}
+
+// A render error is cleared as soon as the user navigates (the boundary is
+// keyed by location), instead of requiring a manual reload.
+function RouterBoundary({ children }) {
+  const { pathname } = useLocation()
+  return <ErrorBoundary key={pathname}>{children}</ErrorBoundary>
 }
 
 function AppContent() {
@@ -100,6 +113,7 @@ function AppContent() {
   // a new route always starts at the top — otherwise the browser keeps the
   // previous scroll offset and you land halfway down the new page
   useEffect(() => {
+    markRouteChange()
     window.scrollTo({ top: 0, left: 0, behavior: "auto" })
   }, [location.pathname])
 
@@ -120,7 +134,10 @@ function AppContent() {
 
       <div className="flex flex-col min-h-screen">
         <Navbar />
-        <main id="main-content">
+        {/* tabIndex lets the skip link actually move focus here (Safari/FF
+            don't focus fragment targets otherwise); the focus ring is
+            suppressed in index.css — a ring around the page is noise */}
+        <main id="main-content" tabIndex={-1}>
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<HomePage />} />
@@ -195,7 +212,9 @@ function App() {
     <MotionConfig reducedMotion="user">
       <HelmetProvider>
         <Router>
-          <AppContent />
+          <RouterBoundary>
+            <AppContent />
+          </RouterBoundary>
         </Router>
       </HelmetProvider>
     </MotionConfig>

@@ -21,7 +21,7 @@ function Hero() {
   return (
     <section
       id="hero"
-      className="relative isolate h-screen flex flex-col justify-center items-center text-center px-6 overflow-hidden bg-slate-950 animate-mesh-gradient"
+      className="relative isolate min-h-screen flex flex-col justify-center items-center text-center px-6 overflow-hidden bg-slate-950 animate-mesh-gradient"
       style={{
         backgroundImage: `radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
                           radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
@@ -77,6 +77,9 @@ function Hero() {
           <img
             src="https://autodev-kappa.vercel.app/api/badge?username=Shashwat1319"
             alt="My AutoDev GitHub Profile Score"
+            width="178"
+            height="20"
+            decoding="async"
             className="h-5 w-auto"
           />
           <span className="text-xs text-slate-400 hover:text-blue-400 transition-colors">my GitHub score</span>

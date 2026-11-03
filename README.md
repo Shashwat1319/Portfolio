@@ -11,10 +11,8 @@ Welcome to my personal portfolio, showcasing my skills, projects, and experience
 ## Tech Stack
 
 **Frontend:** React 18, Tailwind CSS v4, Framer Motion, react-router-dom v7  
-**Backend:** Node.js, Express.js, REST APIs, Mongoose  
-**Database:** MongoDB  
 **Tools:** Vite, Git, EmailJS, SweetAlert2, react-scroll, react-helmet-async  
-**DevOps:** Netlify (SPA hosting with \_redirects fallback)
+**DevOps:** Netlify (config in [`netlify.toml`](netlify.toml) — SPA fallback + cache/security headers), GitHub Actions CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml): `npm ci` → lint → build), Node.js 22
 
 ---
 
@@ -35,6 +33,11 @@ Open-source toolkit that analyzes GitHub profiles (score out of 100), generates 
 **Tech:** Next.js 14, TypeScript, Node.js, Tailwind CSS, Chrome Extension, GitHub API  
 **Live:** [autodev-kappa.vercel.app](https://autodev-kappa.vercel.app) · **Code:** [github.com/Shashwat1319/autodev-agent](https://github.com/Shashwat1319/autodev-agent)
 
+### 4. **SmartGahr**
+Revenue-generating Amazon deals platform: automated pipeline converting products into 180+ deals across 6 formats, serverless click-tracking redirector with bot detection (Netlify Edge Functions), and an SEO site with 38 programmatic deal pages + JSON-LD.  
+**Tech:** Netlify Edge Functions, JavaScript, JSON-LD, SEO Automation, Amazon PA-API, Node.js  
+**Live:** [smartgahr.netlify.app](https://smartgahr.netlify.app/) · **Channel:** [t.me/smartgahr](https://t.me/smartgahr)
+
 ---
 
 ## About Me
@@ -52,7 +55,7 @@ Full-Stack & Backend Engineer based in Lucknow, India. I specialize in architect
 
 ```bash
 cd client
-npm install
+npm ci              # reproducible install from package-lock.json (what CI runs)
 cp .env.example .env   # Windows: copy .env.example .env
 npm run dev
 ```

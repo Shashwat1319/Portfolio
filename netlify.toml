@@ -6,6 +6,17 @@
   command = "npm run build"
   publish = "dist"
 
+# same major as .github/workflows/ci.yml so CI and Netlify build identically
+[build.environment]
+  NODE_VERSION = "22"
+
+# crawlers asking for /favicon.ico get the real SVG favicon instead of the
+# SPA fallback (an HTML page served with 200)
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/favicon.svg"
+  status = 301
+
 # SPA fallback so deep links such as /projects render instead of 404ing.
 # Same rule as client/public/_redirects, kept here so it survives an empty public/ folder.
 [[redirects]]

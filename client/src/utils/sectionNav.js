@@ -11,13 +11,32 @@ import { scroller } from "react-scroll"
  * then we smooth-scroll exactly like react-scroll would. Otherwise the router
  * navigates to the route that renders that section.
  */
+let routeChangingUntil = 0
+
+// App calls this on every route change. During the ~300ms AnimatePresence
+// transition the DOM still holds the PREVIOUS page's sections, so a section
+// lookup in that window would target nodes that are about to unmount — in
+// that window we let the router navigate instead of scrolling a dying page.
+export function markRouteChange() {
+  routeChangingUntil = Date.now() + 400
+}
+
 export function handleSectionNav(event, sectionId) {
   // let modified clicks through to the browser (new tab / new window)
   if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
   if (event.button !== undefined && event.button !== 0) return
 
-  if (!document.getElementById(sectionId)) return // not on this page → router navigates
+  // mid-route-change → fall through to the router
+  if (Date.now() < routeChangingUntil) return
+
+  const el = document.getElementById(sectionId)
+  if (!el) return // not on this page → router navigates
 
   event.preventDefault()
-  scroller.scrollTo(sectionId, { smooth: true })
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  if (prefersReducedMotion) {
+    el.scrollIntoView() // instant jump — react-scroll's rAF animation ignores reduce
+  } else {
+    scroller.scrollTo(sectionId, { smooth: true })
+  }
 }

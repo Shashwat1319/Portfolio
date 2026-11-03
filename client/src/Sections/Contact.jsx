@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import emailjs from "@emailjs/browser"
 
@@ -30,6 +30,17 @@ function Contact() {
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [charCount, setCharCount] = useState(0)
+
+  // guards the EmailJS callbacks: the user can navigate away mid-send, and
+  // state updates after unmount would land on a tree that no longer exists
+  // (the success/failure dialog still shows — sweetalert2 portals to body)
+  const mountedRef = useRef(true)
+  useEffect(() => {
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+    }
+  }, [])
 
   const validate = (name, value) => {
     switch (name) {
@@ -97,7 +108,12 @@ function Contact() {
     setTouched({ from_name: true, from_email: true, message: true })
     setErrors(newErrors)
 
-    if (hasError) return
+    if (hasError) {
+      // move focus to the first invalid field so keyboard/SR users land on it
+      const firstInvalid = fields.find((field) => newErrors[field])
+      if (firstInvalid) form.current?.querySelector(`[name="${firstInvalid}"]`)?.focus()
+      return
+    }
 
     if (!isEmailConfigured) {
       console.error(
@@ -122,6 +138,7 @@ function Contact() {
             text: "Thank you for reaching out. I will get back to you soon.",
             icon: "success",
           })
+          if (!mountedRef.current) return
           resetForm()
           setTouched({})
           setErrors({})
@@ -135,6 +152,7 @@ function Contact() {
             text: "Something went wrong. Please try again later.",
             icon: "error",
           })
+          if (!mountedRef.current) return
           setIsSending(false)
         }
       )
@@ -167,7 +185,7 @@ function Contact() {
                   <svg aria-hidden="true" focusable="false" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                 </div>
                 <div>
-                  <h4 className="text-white font-bold">Email</h4>
+                  <h3 className="text-white font-bold">Email</h3>
                   <p className="text-slate-400">shaswatsrivastava1319@gmail.com</p>
                 </div>
               </div>
@@ -177,7 +195,7 @@ function Contact() {
                   <svg aria-hidden="true" focusable="false" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                 </div>
                 <div>
-                  <h4 className="text-white font-bold">Location</h4>
+                  <h3 className="text-white font-bold">Location</h3>
                   <p className="text-slate-400">Lucknow, India</p>
                 </div>
               </div>
@@ -196,6 +214,7 @@ function Contact() {
                     type="text"
                     name="from_name"
                     required
+                    autoComplete="name"
                     placeholder="John Doe"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -222,6 +241,7 @@ function Contact() {
                     type="email"
                     name="from_email"
                     required
+                    autoComplete="email"
                     placeholder="john@example.com"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -265,6 +285,7 @@ function Contact() {
                   />
                   <span
                     id="message-count"
+                    aria-live="polite"
                     className={`absolute bottom-3 right-3 text-xs font-mono ${
                       charCount > MAX_MESSAGE_LENGTH * 0.9 ? "text-amber-400" : "text-slate-400"
                     }`}

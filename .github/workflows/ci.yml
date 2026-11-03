@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   lint-and-build:
     runs-on: ubuntu-latest
@@ -28,3 +31,13 @@ jobs:
       # the build needs no secrets: missing VITE_EMAILJS_* only disables the
       # contact form (see client/.env.example)
       - run: npm run build
+
+      # catch a build that "succeeds" without producing the files the
+      # deploy (netlify.toml) and SEO (sitemap) depend on
+      - name: Verify build output
+        run: |
+          test -f dist/index.html
+          test -f dist/_redirects
+          test -f dist/robots.txt
+          test -f dist/sitemap.xml
+          test -f dist/favicon.svg

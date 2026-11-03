@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { handleSectionNav } from "../utils/sectionNav.js"
@@ -18,63 +18,118 @@ function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeId, setActiveId] = useState(pathToSection["/"])
-  const visibleRef = useRef(new Set())
+  const activeRef = useRef(pathToSection["/"])
+  const menuRef = useRef(null)
+  const toggleRef = useRef(null)
   const prefersReducedMotion = useReducedMotion()
   const { pathname } = useLocation()
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+  // Reads the live DOM on every run instead of using an IntersectionObserver
+  // created on route change: at that moment <Routes> (inside AnimatePresence
+  // mode="wait") still holds the EXITING page's sections, so an observer set
+  // up then would watch nodes that unmount ~300ms later.
+  const updateActive = useCallback(() => {
+    // same band as the old rootMargin: -45% 0 -45% → the middle 10% of the viewport
+    const bandTop = window.innerHeight * 0.55
+    const bandBottom = window.innerHeight * 0.45
+    let next = null
+    for (const link of navLinks) {
+      const el = document.getElementById(link.to)
+      if (!el) continue
+      const rect = el.getBoundingClientRect()
+      if (rect.top <= bandTop && rect.bottom >= bandBottom) {
+        next = link.to
+        break
+      }
     }
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
+    if (next && next !== activeRef.current) {
+      activeRef.current = next
+      setActiveId(next)
+    }
   }, [])
 
-  // seed the highlight from the route (works on routes with a single section)
   useEffect(() => {
-    setActiveId(pathToSection[pathname] ?? null)
-  }, [pathname])
-
-  // keep the highlight in sync with the section in view (replaces react-scroll spy)
-  useEffect(() => {
-    const sections = navLinks
-      .map((link) => document.getElementById(link.to))
-      .filter(Boolean)
-
-    if (sections.length === 0) return undefined
-
-    visibleRef.current.clear()
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) visibleRef.current.add(entry.target.id)
-          else visibleRef.current.delete(entry.target.id)
-        })
-        const firstVisible = navLinks.find((link) => visibleRef.current.has(link.to))
-        if (firstVisible) setActiveId(firstVisible.to)
-      },
-      { rootMargin: "-45% 0px -45% 0px" }
-    )
-    sections.forEach((section) => observer.observe(section))
-
-    return () => observer.disconnect()
-  }, [pathname])
-
-  const closeMenu = () => setOpen(false)
-
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape") closeMenu()
+    let rafId = 0
+    const handleScroll = () => {
+      if (rafId) return
+      rafId = requestAnimationFrame(() => {
+        rafId = 0
+        setScrolled(window.scrollY > 20)
+        updateActive()
+      })
     }
-    if (open) {
-      document.addEventListener("keydown", handleEscape)
-      document.body.style.overflow = "hidden"
-    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
     return () => {
-      document.removeEventListener("keydown", handleEscape)
+      window.removeEventListener("scroll", handleScroll)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
+  }, [updateActive])
+
+  // seed the highlight from the route, then re-read the DOM once the page
+  // transition has settled (the new sections mount ~300ms later)
+  useEffect(() => {
+    const seed = pathToSection[pathname] ?? null
+    activeRef.current = seed
+    setActiveId(seed)
+    const timer = setTimeout(updateActive, 400)
+    return () => clearTimeout(timer)
+  }, [pathname, updateActive])
+
+  const closeMenu = useCallback(({ refocus = true } = {}) => {
+    setOpen(false)
+    if (refocus) toggleRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    if (!open) return undefined
+
+    // move focus into the dialog as soon as it opens
+    const focusId = requestAnimationFrame(() => {
+      menuRef.current?.querySelector("a")?.focus()
+    })
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeMenu()
+        return
+      }
+      if (e.key !== "Tab") return
+      // trap Tab inside the aria-modal dialog
+      const focusables = menuRef.current?.querySelectorAll("a[href]")
+      if (!focusables || focusables.length === 0) return
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      } else if (!menuRef.current.contains(document.activeElement)) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    // resizing to ≥md hides the menu/backdrop (md:hidden) but `open` would stay
+    // true and body overflow would remain hidden → desktop page unscrollable
+    const desktopQuery = window.matchMedia("(min-width: 768px)")
+    const handleDesktop = (e) => {
+      if (e.matches) closeMenu({ refocus: false })
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    desktopQuery.addEventListener("change", handleDesktop)
+    document.body.style.overflow = "hidden"
+
+    return () => {
+      cancelAnimationFrame(focusId)
+      document.removeEventListener("keydown", handleKeyDown)
+      desktopQuery.removeEventListener("change", handleDesktop)
       document.body.style.overflow = ""
     }
-  }, [open])
+  }, [open, closeMenu])
 
   return (
     <nav
@@ -122,11 +177,12 @@ function Navbar() {
         </ul>
 
         <button
+          ref={toggleRef}
           className="md:hidden text-white p-2 relative z-50"
-          onClick={() => setOpen(!open)}
+          onClick={() => (open ? closeMenu() : setOpen(true))}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          aria-controls="mobile-menu"
+          aria-controls={open ? "mobile-menu" : undefined}
         >
           <div className="w-6 h-5 flex flex-col justify-between items-center relative">
             <span className={`w-full h-0.5 bg-current transition-all ${open ? "rotate-45 translate-y-2" : ""}`} />
@@ -144,12 +200,13 @@ function Navbar() {
             animate={prefersReducedMotion ? {} : { opacity: 1 }}
             exit={prefersReducedMotion ? {} : { opacity: 0, transition: { duration: 0.2 } }}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm md:hidden z-40"
-            onClick={closeMenu}
+            onClick={() => closeMenu()}
             aria-hidden="true"
           />
         )}
         {open && (
           <motion.div
+            ref={menuRef}
             key="menu"
             initial={prefersReducedMotion ? {} : { opacity: 0, height: 0 }}
             animate={prefersReducedMotion ? {} : { opacity: 1, height: "auto" }}
@@ -166,7 +223,7 @@ function Navbar() {
                   <Link
                     to={link.path}
                     onClick={(e) => {
-                      closeMenu()
+                      closeMenu({ refocus: false })
                       handleSectionNav(e, link.to)
                     }}
                     className="text-lg font-medium text-slate-300 hover:text-white block transition-colors"
