@@ -7,8 +7,39 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    groups:
+      # These packages only work in pairs: @eslint/js 10 needs eslint 10,
+      # @vitejs/plugin-react 6 needs vite 8, react 19 needs react-dom 19.
+      # Bumping one half alone makes `npm ci` fail with ERESOLVE, so they
+      # are always updated in the same PR and reviewed together.
+      eslint:
+        patterns:
+          - "eslint"
+          - "@eslint/*"
+          - "eslint-*"
+          - "globals"
+      vite:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+      react:
+        patterns:
+          - "react"
+          - "react-*"
+          - "@types/react*"
+      # everything else lands here, one PR at a time
+      remaining-deps:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      actions:
+        patterns:
+          - "*"
