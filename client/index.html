@@ -34,20 +34,20 @@
     <!-- Canonical -->
     <link rel="canonical" href="https://shashwat-srivastava.netlify.app/" data-rh="true" />
 
-    <!-- Favicon -->
+    <!-- Favicon / PWA icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <!-- Preconnect for Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Preconnect for remote images (project thumbnails + AutoDev badge) -->
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="preconnect" href="https://autodev-kappa.vercel.app" />
 
     <!-- JSON-LD Structured Data: one @graph so Google links the Person entity
-         (the name people search) to this site (the result we want to rank) -->
+         (the name people search) to this site (the result we want to rank).
+         The CSP in netlify.toml allows this block by SHA-256 hash — edit it
+         and run `node client/scripts/verify-csp-hash.mjs --fix` (CI fails
+         until the hash is refreshed). -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -57,7 +57,7 @@
             "@id": "https://shashwat-srivastava.netlify.app/#person",
             "name": "Shashwat Srivastava",
             "description": "Full-Stack & Backend Engineer specializing in MERN applications, scalable APIs, and automation. Based in Lucknow, India.",
-            "image": "https://shashwat-srivastava.netlify.app/myphoto.jpg",
+            "image": "https://shashwat-srivastava.netlify.app/myphoto.webp",
             "jobTitle": "MERN Stack Developer",
             "alumniOf": "Computer Science & Engineering, B-Tech",
             "knowsAbout": ["MERN Stack", "React", "Node.js", "MongoDB", "Express.js", "JavaScript", "REST APIs", "Git", "Tailwind CSS"],

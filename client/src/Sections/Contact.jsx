@@ -3,18 +3,27 @@ import { motion } from "framer-motion"
 import emailjs from "@emailjs/browser"
 
 // sweetalert2 is only needed when the form is actually used, so it is
-// loaded on demand instead of sitting in the initial bundle
+// loaded on demand instead of sitting in the initial bundle. The .catch
+// keeps a failed dynamic import (offline, blocked chunk) from surfacing as
+// an unhandled rejection — the console still records it.
 const showSwal = (options) =>
-  import("sweetalert2").then(({ default: Swal }) =>
-    Swal.fire({
-      confirmButtonColor: "#3b82f6",
-      background: "#0f172a",
-      color: "#fff",
-      ...options,
+  import("sweetalert2")
+    .then(({ default: Swal }) =>
+      Swal.fire({
+        confirmButtonColor: "#3b82f6",
+        background: "#0f172a",
+        color: "#fff",
+        ...options,
+      })
+    )
+    .catch((error) => {
+      console.error("Failed to show dialog:", error)
     })
-  )
 
 const MAX_MESSAGE_LENGTH = 1000
+// short quiet period after a successful send — stops double-submits and
+// naive replay scripts from hitting the inbox twice in a row
+const SEND_COOLDOWN_MS = 10000
 
 // requires VITE_EMAILJS_* in a local .env (copy .env.example) — see README
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
@@ -30,6 +39,8 @@ function Contact() {
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [charCount, setCharCount] = useState(0)
+  // timestamp of the last successful send, for the cooldown (see sendEmail)
+  const lastSuccessRef = useRef(0)
 
   // guards the EmailJS callbacks: the user can navigate away mid-send, and
   // state updates after unmount would land on a tree that no longer exists
@@ -95,6 +106,19 @@ function Contact() {
   const sendEmail = (e) => {
     e.preventDefault()
     const formData = new FormData(form.current)
+
+    // honeypot: this field is display:none, so people (and screen readers)
+    // never see or fill it — anything that did is a bot. Pretend the send
+    // worked instead of touching EmailJS so the bot learns nothing.
+    if (formData.get("website")) {
+      showSwal({
+        title: "Message Sent!",
+        text: "Thank you for reaching out. I will get back to you soon.",
+        icon: "success",
+      })
+      return
+    }
+
     const fields = ["from_name", "from_email", "message"]
     const newErrors = {}
     let hasError = false
@@ -128,11 +152,23 @@ function Contact() {
       return
     }
 
+    // cooldown only starts after a SUCCESSFUL send, so a legitimate retry
+    // after a failure is never blocked
+    if (Date.now() - lastSuccessRef.current < SEND_COOLDOWN_MS) {
+      showSwal({
+        title: "Please wait a moment",
+        text: "Your last message went through. Give it a few seconds before sending another.",
+        icon: "info",
+      })
+      return
+    }
+
     setIsSending(true)
 
     emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form.current, EMAILJS_PUBLIC_KEY)
       .then(
         () => {
+          lastSuccessRef.current = Date.now()
           showSwal({
             title: "Message Sent!",
             text: "Thank you for reaching out. I will get back to you soon.",
@@ -204,6 +240,15 @@ function Contact() {
 
           <div className="glass-card p-8 md:p-10 rounded-3xl border-white/5 relative bg-slate-900/40">
             <form ref={form} onSubmit={sendEmail} noValidate className="space-y-6">
+              {/* honeypot — `hidden` keeps it out of both sight and the
+                  accessibility tree; see sendEmail */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+              />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label htmlFor="from_name" className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">
@@ -285,12 +330,19 @@ function Contact() {
                   />
                   <span
                     id="message-count"
-                    aria-live="polite"
                     className={`absolute bottom-3 right-3 text-xs font-mono ${
                       charCount > MAX_MESSAGE_LENGTH * 0.9 ? "text-amber-400" : "text-slate-400"
                     }`}
                   >
                     {charCount}/{MAX_MESSAGE_LENGTH}
+                  </span>
+                  {/* A live region on the visible counter above would read out
+                      every keystroke; this one stays silent until the limit is
+                      close, then announces the remaining room. */}
+                  <span className="sr-only" aria-live="polite">
+                    {charCount >= MAX_MESSAGE_LENGTH * 0.9
+                      ? `${charCount} of ${MAX_MESSAGE_LENGTH} characters`
+                      : ""}
                   </span>
                 </div>
                 {touched.message && errors.message && (

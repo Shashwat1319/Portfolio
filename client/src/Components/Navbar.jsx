@@ -1,15 +1,17 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
-import { handleSectionNav } from "../utils/sectionNav.js"
+import { handleSectionNav, sectionRoutes } from "../utils/sectionNav.js"
 
+// path comes from sectionRoutes so a section and its route can never drift
+// apart (one source of truth shared with handleSectionNav)
 const navLinks = [
-  { name: "Home", to: "hero", path: "/" },
-  { name: "About", to: "about", path: "/about" },
-  { name: "Skills", to: "skills", path: "/skills" },
-  { name: "Projects", to: "projects", path: "/projects" },
-  { name: "Contact", to: "contact", path: "/contact" },
-]
+  { name: "Home", to: "hero" },
+  { name: "About", to: "about" },
+  { name: "Skills", to: "skills" },
+  { name: "Projects", to: "projects" },
+  { name: "Contact", to: "contact" },
+].map((link) => ({ ...link, path: sectionRoutes[link.to] }))
 
 // which section a route renders, used to seed the active nav item
 const pathToSection = Object.fromEntries(navLinks.map((link) => [link.path, link.to]))
@@ -159,7 +161,7 @@ function Navbar() {
                 <Link
                   to={link.path}
                   onClick={(e) => handleSectionNav(e, link.to)}
-                  aria-current={isActive ? "true" : undefined}
+                  aria-current={isActive ? "page" : undefined}
                   className={`text-sm font-medium transition-all cursor-pointer relative group ${
                     isActive ? "text-blue-500" : "text-slate-300 hover:text-white"
                   }`}

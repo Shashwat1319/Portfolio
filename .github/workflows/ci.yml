@@ -15,9 +15,11 @@ jobs:
       run:
         working-directory: client
     steps:
-      - uses: actions/checkout@v4
+      # Actions pinned to commit SHAs (supply-chain hardening); Dependabot
+      # (.github/dependabot.yml) keeps the pins — and their version comments — fresh
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: npm
@@ -25,6 +27,9 @@ jobs:
 
       # npm ci also fails if package.json and package-lock.json drift apart
       - run: npm ci
+
+      # fail the build on high/critical advisories before doing real work
+      - run: npm audit --audit-level=high
 
       - run: npm run lint
 
@@ -41,3 +46,12 @@ jobs:
           test -f dist/robots.txt
           test -f dist/sitemap.xml
           test -f dist/favicon.svg
+
+      # the CSP in netlify.toml allows the inline JSON-LD by hash — a content
+      # change without a hash refresh would silently block structured data
+      - name: Verify CSP hash matches JSON-LD
+        run: node scripts/verify-csp-hash.mjs
+
+      # update-sitemap.mjs stamps <lastmod> during the build; make sure it ran
+      - name: Verify sitemap lastmod is current
+        run: grep -q "<lastmod>$(date -u +%F)</lastmod>" dist/sitemap.xml

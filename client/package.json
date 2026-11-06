@@ -5,29 +5,30 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/update-sitemap.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify:csp": "node scripts/verify-csp-hash.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@fontsource/inter": "^5.3.0",
     "framer-motion": "^12.38.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^3.0.0",
     "react-router-dom": "^7.11.0",
-    "react-scroll": "^1.9.3",
     "sweetalert2": "^11.26.17"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@tailwindcss/vite": "^4.1.18",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.15.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.12.0",
-    "@tailwindcss/vite": "^4.1.18",
     "tailwindcss": "^4.1.18",
     "vite": "^6.0.1"
   }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react"
+import { useEffect, useRef, useCallback, useState } from "react"
 
 const CustomCursor = () => {
   const cursorRef = useRef(null)
@@ -6,6 +6,12 @@ const CustomCursor = () => {
   const mouseRef = useRef({ x: 0, y: 0 })
   const isHoveringRef = useRef(false)
   const rafRef = useRef(null)
+  // probed once (not on every render) with the SAME query the CSS uses —
+  // index.css only hides the OS cursor under (hover: hover) and (pointer: fine),
+  // so mounting the custom cursor under any other query would show both
+  const [canHover] = useState(
+    () => window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  )
 
   // Position uses the standalone `translate` property so it can be updated on
   // every frame without clobbering the hover `scale` (the old code wrote a
@@ -22,9 +28,7 @@ const CustomCursor = () => {
   }, [])
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia("(hover: none)").matches) {
-      return undefined
-    }
+    if (!canHover) return undefined
 
     // hides the OS cursor (see index.css) — only while this component is mounted
     document.documentElement.classList.add("has-custom-cursor")
@@ -82,9 +86,9 @@ const CustomCursor = () => {
       document.documentElement.classList.remove("has-custom-cursor")
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
-  }, [updatePosition])
+  }, [updatePosition, canHover])
 
-  if (typeof window !== "undefined" && window.matchMedia("(hover: none)").matches) {
+  if (!canHover) {
     return null
   }
 

@@ -1,0 +1,14 @@
+# Keeps npm dependencies and GitHub Actions current automatically.
+# npm lives in client/ (the repo root has no package.json).
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/client"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

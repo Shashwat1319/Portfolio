@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 
-function ImageWithSkeleton({ src, alt, className = "" }) {
+function ImageWithSkeleton({ src, alt, className = "", width, height }) {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
 
@@ -30,6 +30,9 @@ function ImageWithSkeleton({ src, alt, className = "" }) {
           onLoad={() => setLoaded(true)}
           onError={() => setError(true)}
           loading="lazy"
+          decoding="async"
+          width={width}
+          height={height}
           className={`w-full h-full object-cover ${loaded ? "opacity-100" : "opacity-0"}`}
         />
       )}

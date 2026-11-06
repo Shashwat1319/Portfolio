@@ -141,11 +141,16 @@ function AppContent() {
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<HomePage />} />
+              {/* /about renders ONLY the About section (like /skills,
+                  /projects and /contact): a direct hit lands on the content
+                  the URL promises, and the navbar's section highlight can
+                  never disagree with the route. The sr-only h1 keeps the
+                  heading outline intact — Hero carries the h1 elsewhere. */}
               <Route
                 path="/about"
                 element={
                   <PageTransition>
-                    <Hero />
+                    <h1 className="sr-only">About Shashwat Srivastava — Full-Stack Developer</h1>
                     <About />
                   </PageTransition>
                 }

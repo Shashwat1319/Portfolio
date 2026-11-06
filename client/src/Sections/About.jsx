@@ -98,7 +98,7 @@ function About() {
               <div className="flex gap-4 pt-4">
                 <StatItem value={totalProjects} label="Projects" suffix="+" />
                 <div className="w-px h-12 bg-white/10 mx-4" />
-                <StatItem value={yearsExp} label="Year Exp" suffix="+" />
+                <StatItem value={yearsExp} label={yearsExp === 1 ? "Year Exp" : "Years Exp"} suffix="+" />
                 <div className="w-px h-12 bg-white/10 mx-4" />
                 <StatItem value={totalSkills} label="Skills" suffix="+" />
               </div>
@@ -123,8 +123,10 @@ function About() {
             <div className="relative glass-card rounded-2xl p-2 aspect-square flex items-center justify-center overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20" />
               <ImageWithSkeleton
-                src="/myphoto.jpg"
+                src="/myphoto.webp"
                 alt="Shashwat Srivastava"
+                width={1024}
+                height={977}
                 className="w-full h-full rounded-xl grayscale hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
               />
             </div>

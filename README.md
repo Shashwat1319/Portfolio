@@ -11,8 +11,8 @@ Welcome to my personal portfolio, showcasing my skills, projects, and experience
 ## Tech Stack
 
 **Frontend:** React 18, Tailwind CSS v4, Framer Motion, react-router-dom v7  
-**Tools:** Vite, Git, EmailJS, SweetAlert2, react-scroll, react-helmet-async  
-**DevOps:** Netlify (config in [`netlify.toml`](netlify.toml) — SPA fallback + cache/security headers), GitHub Actions CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml): `npm ci` → lint → build), Node.js 22
+**Tools:** Vite, Git, EmailJS, SweetAlert2, react-helmet-async  
+**DevOps:** Netlify (config in [`netlify.toml`](netlify.toml) — SPA fallback + cache/security headers incl. CSP), GitHub Actions CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml): `npm ci` → audit → lint → build → verify) + Dependabot, Node.js 22
 
 ---
 

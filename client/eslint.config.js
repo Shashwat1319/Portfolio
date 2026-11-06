@@ -36,4 +36,15 @@ export default [
       ],
     },
   },
+  {
+    // build-time node scripts (sitemap stamping, CSP hash verification)
+    files: ['scripts/**/*.mjs'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: { ...globals.browser, ...globals.node },
+      parserOptions: { ecmaVersion: 'latest' },
+    },
+    rules: { ...js.configs.recommended.rules },
+  },
 ]
