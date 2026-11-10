@@ -24,7 +24,14 @@ if (!match) {
   process.exit(1)
 }
 
-const hash = "sha256-" + createHash("sha256").update(match[1], "utf8").digest("base64")
+// Normalize line endings before hashing: this repo is often checked out on
+// Windows (core.autocrlf=true → CRLF in dist/index.html) but Netlify and CI
+// build on Linux (LF). The bytes a browser actually receives come from the
+// LF build, so the CSP hash must always be computed over LF — otherwise the
+// hash recorded locally would never match production.
+const jsonLd = match[1].replace(/\r\n/g, "\n").replace(/\r/g, "\n")
+
+const hash = "sha256-" + createHash("sha256").update(jsonLd, "utf8").digest("base64")
 const toml = readFileSync(tomlUrl, "utf8")
 
 if (process.argv.includes("--fix")) {
