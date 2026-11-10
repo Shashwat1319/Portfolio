@@ -7,6 +7,15 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    # eslint 10 is blocked upstream: eslint-plugin-react (latest 7.37.5)
+    # declares peer eslint <=9, so bumping eslint/@eslint/js to 10 makes
+    # `npm ci` fail with ERESOLVE. Remove this ignore once a release of
+    # eslint-plugin-react declares eslint 10 support.
+    ignore:
+      - dependency-name: "eslint"
+        versions: [">=10"]
+      - dependency-name: "@eslint/*"
+        versions: [">=10"]
     groups:
       # These packages only work in pairs: @eslint/js 10 needs eslint 10,
       # @vitejs/plugin-react 6 needs vite 8, react 19 needs react-dom 19.
