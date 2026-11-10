@@ -19,12 +19,23 @@ const pathToSection = Object.fromEntries(navLinks.map((link) => [link.path, link
 function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeId, setActiveId] = useState(pathToSection["/"])
-  const activeRef = useRef(pathToSection["/"])
+  const { pathname } = useLocation()
+  // deep links (/skills etc.) highlight the right item from the very first paint
+  const [activeId, setActiveId] = useState(() => pathToSection[pathname] ?? null)
+  const [prevPathname, setPrevPathname] = useState(pathname)
   const menuRef = useRef(null)
   const toggleRef = useRef(null)
   const prefersReducedMotion = useReducedMotion()
-  const { pathname } = useLocation()
+
+  // Re-seed the highlight when the route changes — during render, not in an
+  // effect. This is the pattern React documents for derived state from a
+  // previous render: it paints the new highlight in the same frame (no flash
+  // of the old page's item) and it satisfies react-hooks/set-state-in-effect,
+  // which rejects synchronous setState in an effect body.
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname)
+    setActiveId(pathToSection[pathname] ?? null)
+  }
 
   // Reads the live DOM on every run instead of using an IntersectionObserver
   // created on route change: at that moment <Routes> (inside AnimatePresence
@@ -44,9 +55,10 @@ function Navbar() {
         break
       }
     }
-    if (next && next !== activeRef.current) {
-      activeRef.current = next
-      setActiveId(next)
+    if (next) {
+      // functional update: bail out (no re-render) when nothing changed,
+      // which is what activeRef was previously used to detect
+      setActiveId((prev) => (prev === next ? prev : next))
     }
   }, [])
 
@@ -68,12 +80,10 @@ function Navbar() {
     }
   }, [updateActive])
 
-  // seed the highlight from the route, then re-read the DOM once the page
-  // transition has settled (the new sections mount ~300ms later)
+  // Re-read the DOM once the page transition has settled: the new sections
+  // mount ~300ms later (AnimatePresence mode="wait"), so an immediate read
+  // would still see the exiting page's sections
   useEffect(() => {
-    const seed = pathToSection[pathname] ?? null
-    activeRef.current = seed
-    setActiveId(seed)
     const timer = setTimeout(updateActive, 400)
     return () => clearTimeout(timer)
   }, [pathname, updateActive])
