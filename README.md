@@ -1,6 +1,6 @@
 # Shashwat Srivastava – Portfolio
 
-Welcome to my personal portfolio, showcasing my skills, projects, and experience as a **Full-Stack & Backend Engineer**. Built with React 18 + Vite + Tailwind CSS v4.
+Welcome to my personal portfolio, showcasing my skills, projects, and experience as a **Full-Stack & Backend Engineer**. Built with React 19 + Vite + Tailwind CSS v4.
 
 ## Live
 
@@ -10,7 +10,7 @@ Welcome to my personal portfolio, showcasing my skills, projects, and experience
 
 ## Tech Stack
 
-**Frontend:** React 18, Tailwind CSS v4, Framer Motion, react-router-dom v7  
+**Frontend:** React 19, Tailwind CSS v4, Framer Motion, react-router-dom v7  
 **Tools:** Vite, Git, EmailJS, SweetAlert2, react-helmet-async  
 **DevOps:** Netlify (config in [`netlify.toml`](netlify.toml) — SPA fallback + cache/security headers incl. CSP), GitHub Actions CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml): `npm ci` → audit → lint → build → verify) + Dependabot, Node.js 22
 
