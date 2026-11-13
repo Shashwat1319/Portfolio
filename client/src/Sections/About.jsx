@@ -6,6 +6,39 @@ import { skillCategories } from "../data/skills.jsx"
 
 const START_YEAR = 2024
 
+// Keep these dates in sync with client/public/ShashwatResume.pdf
+const experience = [
+  {
+    title: "Computer Science Instructor",
+    company: "Govt. Polytechnic (PPP Mode)",
+    date: "Apr 2026 – Present",
+    note: "Also a certified trainer under UPSDM Skill India (Govt. of U.P.)",
+    points: [
+      "Teaching programming, DBMS, and computer fundamentals to diploma students; mentoring on projects and employability skills.",
+    ],
+  },
+  {
+    title: "Software Developer Intern",
+    company: "Circuit Master AI",
+    date: "Jan 2026 – Jun 2026",
+    note: "6-month internship program with certificate",
+    points: [
+      "Developed responsive frontend components and dashboards using React.js in a startup-based product environment.",
+      "Integrated backend REST APIs and implemented authentication workflows for secure user access.",
+    ],
+  },
+  {
+    title: "MERN Stack Developer",
+    company: "Tech Pile Technology Pvt. Ltd.",
+    date: "Sep 2024 – Mar 2025",
+    points: [
+      "Developed 5+ production-ready full-stack modules using React, Node.js, and MongoDB.",
+      "Designed and secured REST APIs with JWT authentication and role-based access control.",
+      "Optimized MongoDB queries using indexing; fixed 20+ production bugs across live deployments.",
+    ],
+  },
+]
+
 function useCountUp(end, duration = 2000, startCounting = false) {
   const [count, setCount] = useState(0)
 
@@ -131,6 +164,43 @@ function About() {
               />
             </div>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-20"
+        >
+          <h2 className="text-4xl md:text-5xl font-black mb-10 text-gradient">
+            Experience
+          </h2>
+          <ol className="relative border-l border-white/10 ml-1 sm:ml-3 space-y-10">
+            {experience.map((job) => (
+              <li key={job.title + job.date} className="pl-6 sm:pl-10 relative">
+                <span className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h3 className="text-lg md:text-xl font-bold text-white">
+                    {job.title}{" "}
+                    <span className="text-blue-400 font-semibold">— {job.company}</span>
+                  </h3>
+                  <span className="text-sm text-slate-500 whitespace-nowrap">{job.date}</span>
+                </div>
+                {job.note && (
+                  <p className="text-sm italic text-slate-500 mt-0.5">{job.note}</p>
+                )}
+                <ul className="mt-2 space-y-1.5 text-slate-400 leading-relaxed">
+                  {job.points.map((point) => (
+                    <li key={point} className="flex gap-2.5">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
         </motion.div>
       </div>
     </section>
