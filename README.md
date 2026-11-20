@@ -31,7 +31,7 @@ AI-powered marketing tool that converts product URLs into platform-specific cont
 ### 3. **AutoDev**
 Open-source toolkit that analyzes GitHub profiles (score out of 100), generates polished READMEs in multiple styles, and includes a CLI for automated git commits. Chrome extension displays scores directly on GitHub profile pages. No login required.  
 **Tech:** Next.js 14, TypeScript, Node.js, Tailwind CSS, Chrome Extension, GitHub API  
-**Live:** [autodev-kappa.vercel.app](https://autodev-kappa.vercel.app) · **Code:** [github.com/Shashwat1319/autodev-agent](https://github.com/Shashwat1319/autodev-agent)
+**Live:** [autodev-kappa.vercel.app](https://autodev-kappa.vercel.app)
 
 ### 4. **SmartGahr**
 Revenue-generating Amazon deals platform: automated pipeline converting products into 180+ deals across 6 formats, serverless click-tracking redirector with bot detection (Netlify Edge Functions), and an SEO site with 38 programmatic deal pages + JSON-LD.  
